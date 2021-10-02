@@ -7,6 +7,7 @@ var session = require('express-session');
 var passport = require('./config/passport');
 var userConfig = require('./config/userConfig.json');
 var logger = require('morgan');
+var createError = require('http-errors');
 var app = express();
 
 // DB setting
@@ -41,12 +42,27 @@ app.use(function(req, res, next){
   next();
 })
 
-
 // Routes
 app.use('/', require('./routes/home'));
 app.use('/posts', require('./routes/posts'));
 app.use('/users', require('./routes/users'));
 
+// catch 404 and forward to error handler 
+// MUST be after Routes 
+app.use(function(req, res, next){
+  next(createError(404));
+}); 
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
 
 // Port setting
 var port = 3000;
