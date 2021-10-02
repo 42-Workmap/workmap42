@@ -10,6 +10,10 @@ router.get('/about', function(req, res){
   res.render('home/about');
 });
 
+router.get('/upload', (req, res, next) => {
+  res.render('upload');
+})
+
 // Login
 router.get('/login', function (req,res) {
   var username = req.flash('username')[0];
