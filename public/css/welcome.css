@@ -77,3 +77,43 @@ font-weight: bolder;
 font-size : 15px;
 font-weight : normal;
 }
+
+
+#placesList {
+	position : absolute;
+	top : 0;
+	/* left : 0; */
+	bottom : 0;
+	/* width : 200px; */
+	margin : 50px 0 30px 10px;
+	/* padding : 5px; */
+	overflow-y : auto;
+	background : rgba(255,255,255,0.7);
+	font-size:12px;
+	/* border-radius:10px; */
+}
+
+#placesList .item {
+	position : relative;
+	border-bottom:1px solid #888;
+	overflow : hidden;
+	cursor : pointer;
+	width : 100%;
+
+}
+
+#placesList .item span {
+	display:block;
+	margin-top : 4px;
+}
+
+#placesList .item .info {
+	text-overflow : ellipsis;
+	overflow : hidden;
+	white-space : nowrap;
+	padding : 20px;
+}
+
+#placesList .item .info_company {
+	font-weight : bolder;
+}

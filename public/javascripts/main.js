@@ -14,6 +14,8 @@ $.ajax({
 
 	let markerList = [];
 	let infowindowList = [];
+	var list = []
+	var listEl = document.getElementById('placesList');
 
 	const getClickHandler = (i) => () => {
 		const marker = markerList[i];
@@ -31,7 +33,13 @@ $.ajax({
 		infowindow.close();
 	}
 
-	for (let i in data){
+	// const displayInfoWindow = (marker, infowindow, lat, lng) => () => {
+	// 	let newlat = new naver.maps.LatLng(lat, lng);
+	// 	map.morph(newlat, 15);
+	// 	infowindow.open(map, marker);
+	// }
+
+	for (let i = 0; i < data.length; i++){
 		const target = data[i];
 		const latlng = new naver.maps.LatLng(target.lat, target.lng);
 
@@ -46,7 +54,7 @@ $.ajax({
 
 		const content = `
 			<div class="infowindow_wrap">
-				<div class="infowindow_name">${target.title}</div>
+				<div class="infowindow_name">${target.company_name}</div>
 				<div class="infowindow_address">${target.address}</div>
 			</div>
 		`;
@@ -60,11 +68,33 @@ $.ajax({
 
 		markerList.push(marker);
 		infowindowList.push(infowindow);
+
+		let el = document.createElement("div");
+		let itemStr = `
+		<div class=info>
+                <div class="info_company">
+                 ${target.company_name}
+                 </div>
+                 <span>${target.address}</span>
+            </div>
+		`;
+
+		el.innerHTML = itemStr;
+		el.className = "item"; 
+
+		el.onclick = function(){
+			map.morph(latlng, 15);
+			infowindow.open(map, marker);
+		}
+
+		listEl.appendChild(el);
+		list.push(el);
 	}
 
 	for (let i = 0, ii = markerList.length; i < ii; i++){
 		naver.maps.Event.addListener(map, "click", getClickMap(i));
 		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
+		// naver.maps.Event.addListener(list[i], "click", getClickHandler(i));
 	} 
 
 });
