@@ -38,13 +38,13 @@ function displayPlaces(data) {
 	let bounds = new daum.maps.LatLngBounds(); // 해당 영역을 보여주는 함수 이후 사용 예정 행정구역 처럼 
 	removeAllChildNodes(listEl);
 	removeMarker();
+	let redata;
 
 	for (let i = 0; i < data.length; i++)  {
-		let lat = data[i].y;
-		let lng = data[i].x;
-		let address_name = data[i]["address_name"];
-		let place_name = data[i]["place_name"];
+		let {place_name, address_name, y:lat, x:lng, category_name, place_url} = data[i];
+		redata = [place_name, address_name, lat, lng, category_name, place_url];
 
+		// alltheinfo = {place_name, address_name, lat, lng, category_name, place_url}
 		const placePosition = new daum.maps.LatLng(lat, lng);
 		bounds.extend(placePosition);
 
@@ -69,31 +69,37 @@ function displayPlaces(data) {
 		el.className = "item";
 
 		daum.maps.event.addListener(marker, "click", function () {
-			displayInfowindow(marker, place_name, address_name, lat, lng);
+			infowindow.close();
+			displayInfowindow(marker, place_name, address_name, lat, lng, category_name, place_url);
+			let placePos = new daum.maps.LatLng(lat, lng);
+			map.panTo(placePos);
 		});
 
-		daum.maps.event.addListener(marker, "click", function () {
+		daum.maps.event.addListener(map, "click", function () {
 			infowindow.close();
 		});
 
 		el.onclick = function () {
-			displayInfowindow(marker, place_name, address_name, lat, lng);
+			displayInfowindow(marker, place_name, address_name, lat, lng, category_name, place_url);
 		}
 		listEl.appendChild(el);
 	}
 	map.setBounds(bounds);
 }
 
-function displayInfowindow(marker, place_name, address_name, lat, lng) {
+
+function displayInfowindow(marker, place_name, address_name, lat, lng, category_name, place_url) {
 	let content = `
-	<div style="padding:25px;">
-	${place_name} <br> 
-	${address_name} <br>
-	<button onClick="onSubmit('${place_name}','${address_name}',${lat},${lng});">등록</button>
-	</div>
-	`;
-	// map.panTo(marker, getPosition());
+			<div class="infowindow_wrap">
+				<div class="infowindow_name">${place_name}</div>
+				<div class="infowindow_address">${address_name}</div>
+				<button class="btn btn-outline-success btn-sm" onClick="onSubmit('${place_name}','${address_name}',${lat},${lng}, '${category_name}', '${place_url}');">등록</button>
+			</div>
+		`;
+	let placePos = new daum.maps.LatLng(lat, lng);
+	map.panTo(placePos);
 	infowindow.setContent(content);
+	// infowindow.setPosition(placePos);
 	infowindow.open(map,marker);
 }
 
@@ -110,10 +116,10 @@ function removeMarker() {
 	markerList = [];
 }
 
-function onSubmit(title, address, lat, lng) {
+function onSubmit(title, address, lat, lng, category_name, place_url) {
 	$.ajax({
 		url:"/location",
-		data:{title, address, lat, lng}, 
+		data:{title, address, lat, lng, category_name, place_url}, 
 		type:"POST",
 	}).done((response) => {
 		console.log("data request successed");

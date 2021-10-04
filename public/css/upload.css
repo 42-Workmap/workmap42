@@ -34,6 +34,23 @@ body {
 	display : block;
 }
 
+
+.infowindow_wrap {
+	background : white;
+	padding : 20px;
+	border : 1px solid rgba(0,0,0,0.2);
+	}
+	
+.infowindow_name {
+	font-size : 15px;
+	font-weight: bolder;
+}
+
+.infowindow_address {
+	font-size : 13px;
+	font-weight : normal;
+}
+
 .map_wrap, 
 .map_wrap * {
 	margin : 0;

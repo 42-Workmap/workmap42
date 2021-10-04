@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport');
+var User = require('../models/User');
+var util = require('../util');
 
 // Home
 router.get('/', function(req, res){
@@ -12,6 +14,10 @@ router.get('/about', function(req, res){
 
 router.get('/upload', (req, res, next) => {
   res.render('maps/upload');
+})
+
+router.get('/admin', util.isLoggedin, checkPermissionAdmin, (req, res, next) => {
+  res.render('home/admin');
 })
 
 // Login
@@ -60,3 +66,13 @@ router.get('/logout', function(req, res) {
 });
 
 module.exports = router;
+
+//private functions 
+function checkPermissionAdmin(req, res, next){
+	User.findOne({username:"selim"}, function(err, admin){
+		if (err) return res.json(err);
+		if (admin.id != req.user.id) return util.noPermission(req, res);
+
+		next();
+	});
+}
