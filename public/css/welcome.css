@@ -1,0 +1,79 @@
+a {
+	color: #00B7FF;
+}
+
+#map {
+	padding : 0px;
+	margin:0px;
+}
+
+#map:focus {
+	outline : none;
+}
+
+.mb-3 {
+	/*space between navbar*/
+	margin-bottom : 0px !important;
+}
+
+.mapcol {
+	padding : 0px;
+}
+
+/* 
+ul {
+list-style-type:none;
+margin : 0px;
+padding : 0px;
+overflow:hidden;
+background:#333;
+position : fixed;
+width : 100%;
+z-index:1000;
+}
+
+li {
+float: left;
+} */
+
+/* li a{
+display:block;
+color: white;
+text-decoration : none;
+text-align : center;
+padding : 14px 16px;
+}
+
+.active {
+background-color : green;
+} */
+
+li a:hover:not(.active) {
+	/* background-color: #111; */
+	font : #111;
+}
+
+.marker {
+width : 15px;
+height : 15px;
+background : green ;
+opacity : 60%; 
+border : 1px solid black;
+border-radius : 50%;
+}
+
+.infowindow_wrap {
+background : white;
+padding : 20px;
+border : 1px solid rgba(0,0,0,0.2);
+}
+
+.infowindow_name {
+font-size : 15px;
+font-weight: bolder;
+}
+
+.infowindow_address {
+font-size : 15px;
+font-weight : normal;
+}

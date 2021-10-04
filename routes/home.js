@@ -11,7 +11,7 @@ router.get('/about', function(req, res){
 });
 
 router.get('/upload', (req, res, next) => {
-  res.render('upload');
+  res.render('maps/upload');
 })
 
 // Login

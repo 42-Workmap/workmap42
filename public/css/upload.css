@@ -1,0 +1,90 @@
+body {
+	padding: 0px;
+	margin : 0px;
+}
+  
+
+#map {
+	padding : 0px;
+	margin:0px;
+}
+
+#map:focus {
+	outline : none;
+}
+
+.mb-3 {
+	/*space between navbar*/
+	margin-bottom : 0px !important;
+}
+
+.mapcol {
+	padding : 0px;
+}
+
+.info.body {
+	position : relative;
+	overflow:hidden;
+}
+
+.info.desc {
+	position:relative;
+	margin :8px 0 0 90px;
+	height : 75px;
+	display : block;
+}
+
+.map_wrap, 
+.map_wrap * {
+	margin : 0;
+	padding : 0;
+	font-size : 12px;
+}
+
+#menu_wrap {
+	position : absolute;
+	top : 0;
+	left : 0;
+	bottom : 0;
+	width : 200px;
+	margin : 50px 0 30px 10px;
+	padding : 5px;
+	overflow-y : auto;
+	background : rgba(255,255,255,0.7);
+	z-index:1;
+	font-size:12px;
+	border-radius:10px;
+}
+
+#menu_wrap hr {
+	display: block;
+	height : 1px;
+	border: 0;
+	border-top : 2px solid #5f5f5f;
+	margin : 3px 0;
+}
+
+#placesList .item {
+	position : relative;
+	border-bottom:1px solid #888;
+	overflow : hideen;
+	cursor : pointer;
+	width : 100%;
+
+}
+
+#placesList .item span {
+	display:block;
+	margin-top : 4px;
+}
+
+#placesList .item .info {
+	text-overflow : ellipsis;
+	overflow : hidden;
+	white-space : nowrap;
+	padding : 20px;
+}
+
+#placesList .item .info_title {
+	font-weight : bolder;
+}
