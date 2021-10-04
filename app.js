@@ -34,6 +34,7 @@ app.use('/', require('./routes/home'));
 app.use('/posts', require('./routes/posts'));
 app.use('/users', require('./routes/users'));
 app.use('/location', require('./routes/location'));
+app.use('/admin', require('./routes/admin'));
 
 // catch 404 and forward to error handler 
 // MUST be after Routes 

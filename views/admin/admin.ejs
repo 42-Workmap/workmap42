@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../partials/head') %>
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f40a2802b6187dff8911469bf1c1ed0a&libraries=services"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+  </head>
+  <body>
+    <%- include('../partials/nav') %>
+
+    
+    <div class="container mb-3">
+
+      <h2 class="mb-3">Append</h2>
+      
+      <div class="input-group">
+        <div class="form-outline">
+          <input type="search" id="form1" class="form-control search_input" placeholder="Search" />
+        </div>
+        <button type="button" id="search_button" class="btn btn-primary">추가하기
+          <!--<i class="fas fa-search"></i>-->
+        </button>
+      </div>
+      <div id="result"></div>
+      <div id="resulturl"></div>
+
+      <h2 class="mb-3">Index</h2>
+
+      <table class="board-table table table-sm border-bottom">
+
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="width:150px">Company</th>
+            <th scope="col">Address</th> <!--post author-->
+            <th scope="col">Category</th>
+            <th scope="col">Group</th>
+            <th scope="col" style="width:100px"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if(places == null || places.length == 0){ %>
+            <tr>
+              <td colspan=100> There is no data to show :( </td>
+            </tr>
+          <% } %>
+          <% places.forEach(function(place) { %>
+            <tr>
+              <td>
+                <div class="ellipsis"><%= place.company_name %></div>
+              </td>
+              <td>
+                <div class="ellipsis"><%= place.address %></div>
+              </td>
+              <td>
+                <div class="ellipsis"><%= place.category_name %></div>
+              </td>
+              <td>
+                <form action="/admin/<%= place._id %>?_method=put" method="post">
+                  <input type="text" id="group" name="group" value="<%= place.group %>" class="form-control d-inline" style="width:150px">
+                  <a class="btn btn-primary btn-sm" href="#" onclick="this.parentElement.submit()">Update</a>
+                </form>
+              </td>
+              <td>
+                 <form action="/admin/<%= place._id %>?_method=delete" method="post" class="d-inline">
+                  <a class="btn btn-danger btn-sm" href="#" onclick="confirm('Do you want to delete this?')?this.parentElement.submit():null;">Delete</a>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+
+      </table>
+
+
+    </div>
+<script type="text/javascript" src="/javascripts/usekakao.js"></script>
+
+  </body>
+</html>

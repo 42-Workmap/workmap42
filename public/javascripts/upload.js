@@ -41,10 +41,10 @@ function displayPlaces(data) {
 	let redata;
 
 	for (let i = 0; i < data.length; i++)  {
-		let {place_name, address_name, y:lat, x:lng, category_name, place_url} = data[i];
-		redata = [place_name, address_name, lat, lng, category_name, place_url];
+		let {place_name:company_name, address_name, y:lat, x:lng, category_name, place_url} = data[i];
+		redata = [company_name, address_name, lat, lng, category_name, place_url];
 
-		// alltheinfo = {place_name, address_name, lat, lng, category_name, place_url}
+		// alltheinfo = {company_name, address_name, lat, lng, category_name, place_url}
 		const placePosition = new daum.maps.LatLng(lat, lng);
 		bounds.extend(placePosition);
 
@@ -58,8 +58,8 @@ function displayPlaces(data) {
 		const el = document.createElement("div");
 		const itemStr = `
 		<div class="info">
-			<div class="info_title">
-				${place_name}
+			<div class="info_company">
+				${company_name}
 			</div>
 			<span>${address_name}</span>
 		</div>
@@ -70,7 +70,7 @@ function displayPlaces(data) {
 
 		daum.maps.event.addListener(marker, "click", function () {
 			infowindow.close();
-			displayInfowindow(marker, place_name, address_name, lat, lng, category_name, place_url);
+			displayInfowindow(marker, company_name, address_name, lat, lng, category_name, place_url);
 			let placePos = new daum.maps.LatLng(lat, lng);
 			map.panTo(placePos);
 		});
@@ -80,7 +80,7 @@ function displayPlaces(data) {
 		});
 
 		el.onclick = function () {
-			displayInfowindow(marker, place_name, address_name, lat, lng, category_name, place_url);
+			displayInfowindow(marker, company_name, address_name, lat, lng, category_name, place_url);
 		}
 		listEl.appendChild(el);
 	}
@@ -88,12 +88,12 @@ function displayPlaces(data) {
 }
 
 
-function displayInfowindow(marker, place_name, address_name, lat, lng, category_name, place_url) {
+function displayInfowindow(marker, company_name, address_name, lat, lng, category_name, place_url) {
 	let content = `
 			<div class="infowindow_wrap">
-				<div class="infowindow_name">${place_name}</div>
+				<div class="infowindow_name">${company_name}</div>
 				<div class="infowindow_address">${address_name}</div>
-				<button class="btn btn-outline-success btn-sm" onClick="onSubmit('${place_name}','${address_name}',${lat},${lng}, '${category_name}', '${place_url}');">등록</button>
+				<button class="btn btn-outline-success btn-sm" onClick="onSubmit('${company_name}','${address_name}',${lat},${lng}, '${category_name}', '${place_url}');">등록</button>
 			</div>
 		`;
 	let placePos = new daum.maps.LatLng(lat, lng);
@@ -116,10 +116,10 @@ function removeMarker() {
 	markerList = [];
 }
 
-function onSubmit(title, address, lat, lng, category_name, place_url) {
+function onSubmit(company_name, address, lat, lng, category_name, place_url) {
 	$.ajax({
 		url:"/location",
-		data:{title, address, lat, lng, category_name, place_url}, 
+		data:{company_name, address, lat, lng, category_name, place_url}, 
 		type:"POST",
 	}).done((response) => {
 		console.log("data request successed");
