@@ -32,7 +32,7 @@
         <thead class="thead-light">
           <tr>
             <th scope="col" style="width:150px">Company</th>
-            <th scope="col">Address</th> <!--post author-->
+            <th scope="col" style="width:150px">Address</th> <!--post author-->
             <th scope="col">Category</th>
             <th scope="col">Group</th>
             <th scope="col" style="width:100px"></th>
@@ -51,7 +51,7 @@
                 <div class="ellipsis"><%= place.company_name %></div>
               </td>
               <td>
-                <div class="ellipsis"><%= place.address %></div>
+                <div class="ellipsis"><a href="<%= place.place_url %>" target="_blank">place_url</a></div>
               </td>
               <td>
                 <div class="ellipsis"><%= place.category_name %></div>
@@ -72,8 +72,6 @@
         </tbody>
 
       </table>
-
-
     </div>
 <script type="text/javascript" src="/javascripts/usekakao.js"></script>
 

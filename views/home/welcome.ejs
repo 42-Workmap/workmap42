@@ -10,17 +10,23 @@
   <body>
     <%- include('../partials/nav') %>
 
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-xs-3 col-md-3" style="background-color:brown">
-
+        <div class="col-1" id="box-left">
+            <div class="row">
+              <button onclick="spreadMarkers('')" type="submit" id="group" class="btn btn-lg" value="total">전체보기</button>
+              <button onclick="spreadMarkers('game')" type="submit" id="group" class="btn btn-lg" value="game">GAME</button> 
+              <button onclick="spreadMarkers('software')" type="submit" id="group" class="btn btn-lg" value="software">Software</button>
+          </div>
         </div>
-        <div class="col-xs-3 col-md-3" style="background-color: azure;">
-            <div id="placesList">
-
-            </div>
+        <div class="col-3">
+            <form onsubmit="searchPlaces();return false;">
+              키워드:<input type="text" value="" id="keyword" size="15">
+              <button type="submit">검색하기</button>
+            </form>
+            <div id="placesList"></div>
         </div>
-        <div class="col-xs-6 col-md-6 mapcol">
+        <div class="col mapcol" id="box-right">
           <div id="map" style="width:100%;height:90vh;"></div>
         </div>
       </div>

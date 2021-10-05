@@ -11,6 +11,19 @@ router.post('/', function(req, res, next){
 		// res.json({message:"success"});
 	})
 })
+
+router.get("/:id", (req, res, next) => {
+	locationModel.find({group:req.params.id}, {_id:0, _v:0}).then((result)=>{
+		res.json({
+			message:"success", 
+			data:result,
+		});
+	}).catch((error) => {
+		res.json({
+			message:"error"
+		})
+	})
+})
   
 router.get("/", (req, res, next) => {
 	locationModel.find({}, {_id:0, __v: 0}).then((result) => {
