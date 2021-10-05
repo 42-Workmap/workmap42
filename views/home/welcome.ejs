@@ -13,15 +13,11 @@
     <div class="container">
       <div class="row">
         <div class="col-1" id="box-left">
-            <div class="row">
-              <button onclick="spreadMarkers('')" type="submit" id="group" class="btn btn-lg" value="total">전체보기</button>
-              <button onclick="spreadMarkers('game')" type="submit" id="group" class="btn btn-lg" value="game">GAME</button> 
-              <button onclick="spreadMarkers('software')" type="submit" id="group" class="btn btn-lg" value="software">Software</button>
-          </div>
+            <%- include('./button') %>
         </div>
         <div class="col-3">
             <form onsubmit="searchPlaces();return false;">
-              키워드:<input type="text" value="" id="keyword" size="15">
+              키워드 : <input type="text" value="" id="keyword" size="15">
               <button type="submit">검색하기</button>
             </form>
             <div id="placesList"></div>
@@ -30,10 +26,6 @@
           <div id="map" style="width:100%;height:90vh;"></div>
         </div>
       </div>
-      <!-- <div class="jumbotron">
-        <h1>My Website</h1>
-        <P>제 웹사이트를 방문해 주셔서 감사합니다!</p>
-      </div> -->
     </div>
 
 <script type="text/javascript" src="/javascripts/main.js"></script>
