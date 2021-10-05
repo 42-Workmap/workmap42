@@ -20,6 +20,20 @@ a {
 	padding : 0px;
 }
 
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media  screen and (min-width: 992px){
+	.container {
+		max-width:1300;
+	}	
+}
+
 /* 
 ul {
 list-style-type:none;
@@ -64,17 +78,19 @@ border-radius : 50%;
 
 .infowindow_wrap {
 background : white;
-padding : 20px;
-border : 1px solid rgba(0,0,0,0.2);
+/* padding : 0px;
+margin : 0px;
+border : 1px solid rgba(0,0,0,0.2); */
 }
 
 .infowindow_name {
-font-size : 15px;
-font-weight: bolder;
+/* font-size : 15px; */
+/* font-weight: bolrder; */
 }
 
 .infowindow_address {
-font-size : 15px;
+/* font-size : 15px; */
+padding:30px;
 font-weight : normal;
 }
 
@@ -127,3 +143,5 @@ form {
 #placesList .item .info_company {
 	font-weight : bolder;
 } */
+
+
