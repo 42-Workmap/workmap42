@@ -82,18 +82,18 @@ font-weight : normal;
 #placesList {
 
 	position : absolute;
-	top : 0;
-	/* left : 0; */
+	top : 50px;
+	left : 0;
+	right: 0;
 	bottom : 0;
 	/* width : 200px; */
-	margin : 50px 0px 30px 10px;
+	/* margin : 50px 0px 30px 10px; */
 	padding : 5px;
 	overflow-y : auto;
 	background : rgba(255,255,255,0.7);
 	/* font-size:12px; */
 	/* border-radius:10px; */
-	width:95%;
-
+	width:100%;
 }
 
 form {
