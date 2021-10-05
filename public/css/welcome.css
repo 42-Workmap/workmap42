@@ -80,20 +80,29 @@ font-weight : normal;
 
 
 #placesList {
+
 	position : absolute;
 	top : 0;
 	/* left : 0; */
 	bottom : 0;
 	/* width : 200px; */
-	margin : 50px 0 30px 10px;
-	/* padding : 5px; */
+	margin : 50px 0px 30px 10px;
+	padding : 5px;
 	overflow-y : auto;
 	background : rgba(255,255,255,0.7);
-	font-size:12px;
+	/* font-size:12px; */
 	/* border-radius:10px; */
+	width:95%;
+
+}
+
+form {
+	margin-right :0px;
+	padding : 0px;
 }
 
 #placesList .item {
+
 	position : relative;
 	border-bottom:1px solid #888;
 	overflow : hidden;
@@ -101,13 +110,14 @@ font-weight : normal;
 	width : 100%;
 
 }
-
+/* 
 #placesList .item span {
 	display:block;
 	margin-top : 4px;
 }
 
 #placesList .item .info {
+	font-size: 15px;
 	text-overflow : ellipsis;
 	overflow : hidden;
 	white-space : nowrap;
@@ -116,4 +126,4 @@ font-weight : normal;
 
 #placesList .item .info_company {
 	font-weight : bolder;
-}
+} */

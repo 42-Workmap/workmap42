@@ -71,12 +71,12 @@ $.ajax({
 
 		let el = document.createElement("div");
 		let itemStr = `
-		<div class=info>
-                <div class="info_company">
-                 ${target.company_name}
-                 </div>
-                 <span>${target.address}</span>
-            </div>
+			<div class="card">
+				<div class="card-body">
+                	<h6 class="card-title">${target.company_name}</h6>
+                 	<span class="card-text">${target.address}</span>
+				</div>
+			</div>
 		`;
 
 		el.innerHTML = itemStr;
