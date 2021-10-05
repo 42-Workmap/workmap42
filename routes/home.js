@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport');
+var locationModel = require('../models/location');
 
 // Home
 router.get('/', function(req, res){
-  res.render('home/welcome');
+  res.render('home/welcome', {group:"location"});
 });
 router.get('/about', function(req, res){
   res.render('home/about');
@@ -13,6 +14,14 @@ router.get('/about', function(req, res){
 router.get('/upload', (req, res, next) => {
   res.render('maps/upload');
 })
+
+// router.get('/:id', (req, res, next) => {
+//   locationModel.find({group:req.params.id})
+//   .exec(function(err, groups){
+//     if (err) return res.json(err);
+//     res.render('home/welcome', {group:l"location"})
+//   });
+// });
 
 // Login
 router.get('/login', function (req,res) {

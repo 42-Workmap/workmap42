@@ -81,6 +81,5 @@ function onSubmit(company_name, address, lat, lng, category_name, place_url) {
 		console.log("data request successed");
 	}).fail((error) => {
 		console.log("데이터 요청 실패");
-		alert("실패");
 	})
 }
