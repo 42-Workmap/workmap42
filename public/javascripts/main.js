@@ -16,6 +16,7 @@ $.ajax({
 	let infowindowList = [];
 	var list = []
 	var listEl = document.getElementById('placesList');
+	let title = [];
 
 	const getClickHandler = (i) => () => {
 		const marker = markerList[i];
@@ -49,7 +50,14 @@ $.ajax({
 		});
 	
 		titleWindow.open(map, marker);
+
+		title.push(titleWindow);
 	};
+
+	const getMouseOutHandler = (i) => () => {
+		title[0].close();
+		title.pop();
+	}
 
 	for (let i = 0; i < data.length; i++){
 		const target = data[i];
@@ -112,6 +120,7 @@ $.ajax({
 		naver.maps.Event.addListener(map, "click", getClickMap(i));
 		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
 		naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
+		naver.maps.Event.addListener(markerList[i],"mouseout", getMouseOutHandler(i));
 	} 
 
 });
