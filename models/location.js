@@ -8,6 +8,7 @@ const locationschema = new Schema({
 	lng : {type:Number, required:true},
 	category_name : {type:String}, 
 	place_url : {type:String}, 
+	homepage : {type:String},
 	group:{type:String}
 });
 

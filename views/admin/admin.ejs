@@ -51,7 +51,7 @@
                 <div class="ellipsis"><%= place.company_name %></div>
               </td>
               <td>
-                <div class="ellipsis"><a href="<%= place.place_url %>" target="_blank">place_url</a></div>
+                <div class="ellipsis"><a href="<%= place.homepage %>" target="_blank"><%= place.homepage ? place.homepage : "" %></a></div>
               </td>
               <td>
                 <div class="ellipsis"><%= place.category_name %></div>
@@ -59,6 +59,7 @@
               <td>
                 <form action="/admin/<%= place._id %>?_method=put" method="post">
                   <input type="text" id="group" name="group" value="<%= place.group %>" class="form-control d-inline" style="width:150px">
+                  <input type="hidden" name="place_url" value="<%= place.place_url %>">
                   <a class="btn btn-primary btn-sm" href="#" onclick="this.parentElement.submit()">Update</a>
                 </form>
               </td>
