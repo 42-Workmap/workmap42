@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override'); // post put 
 var flash = require('connect-flash'); // user error
 var session = require('express-session');
-var passport = require('./config/passport');
-var userConfig = require('./config/userConfig.json');
+var passport = require('../config/passport');
+var userConfig = require('../config/userConfig.json');
 var logger = require('morgan');
 var createError = require('http-errors');
 var app = express();
@@ -43,9 +43,9 @@ app.use(function(req, res, next){
 })
 
 // Routes
-app.use('/', require('./routes/home'));
-app.use('/posts', require('./routes/posts'));
-app.use('/users', require('./routes/users'));
+app.use('/', require('../routes/home'));
+app.use('/posts', require('../routes/posts'));
+app.use('/users', require('../routes/users'));
 
 // catch 404 and forward to error handler 
 // MUST be after Routes 
