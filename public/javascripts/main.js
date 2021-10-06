@@ -4,6 +4,7 @@ var mapOptions = {
 };
 
 let markerList = [];
+let infowindowList = [];
 
 var map = new naver.maps.Map('map', mapOptions);
 
@@ -17,11 +18,13 @@ function spreadMarkers (groupval) {
 		if (response.message !== "success") return ;
 		const data = response.data;
 	
-		let infowindowList = [];
 		var list = []
 		var listEl = document.getElementById('placesList');
 		removeAllChildNodes(listEl);
 		removeMarker();
+		removeWindows();
+
+		map.morph(new naver.maps.LatLng(37.3595704, 127.105399), 10);
 	
 		const getClickHandler = (i) => () => {
 			const marker = markerList[i];
@@ -118,4 +121,11 @@ function removeMarker() {
 		markerList[i].setMap(null);
 	}
 	markerList = [];
+}
+
+function removeWindows() {
+	for (let i = 0; i < infowindowList.length; i++) {
+		infowindowList[i].close();
+	}
+	infowindowList = [];
 }
