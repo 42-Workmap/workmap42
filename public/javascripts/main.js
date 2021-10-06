@@ -31,13 +31,25 @@ $.ajax({
 	const getClickMap = (i) => () => {
 		const infowindow = infowindowList[i];
 		infowindow.close();
-	}
+	};
 
-	// const displayInfoWindow = (marker, infowindow, lat, lng) => () => {
-	// 	let newlat = new naver.maps.LatLng(lat, lng);
-	// 	map.morph(newlat, 15);
-	// 	infowindow.open(map, marker);
-	// }
+	const getHoverHandler = (i) => ()  => {
+		const target = data[i];
+		const marker = markerList[i];
+	
+		const content = `<div class='hover_wrap'>
+		<div class='hover_title'>${target.company_name}</div>
+		</div>`;
+	
+		const titleWindow = new naver.maps.InfoWindow({
+			content: content, 
+			backgroundColor: '#ffffffff',
+			borderColor : '#00ff0000',
+			anchorSize: new naver.maps.Size(0,0)
+		});
+	
+		titleWindow.open(map, marker);
+	};
 
 	for (let i = 0; i < data.length; i++){
 		const target = data[i];
@@ -53,10 +65,15 @@ $.ajax({
 		});
 
 		const content = `
-			<div class="infowindow_wrap">
-				<div class="infowindow_name">${target.company_name}</div>
-				<div class="infowindow_address">${target.address}</div>
-			</div>
+		<div class="card">
+			<div class="card-body">
+    			<h5 class="card-title">${target.company_name}</h5>
+				<hr>
+    			<p class="card-text">${target.address}</p>
+    			<a href="#" class="btn btn-outline-info btn-sm">홈페이지</a>
+				<button type="button" class="btn btn-outline-info btn-sm">Close</button>
+  			</div>
+		</div>
 		`;
 
 		const infowindow = new naver.maps.InfoWindow({
@@ -83,7 +100,7 @@ $.ajax({
 		el.className = "item"; 
 
 		el.onclick = function(){
-			map.morph(latlng, 15);
+			map.morph(latlng, 12);
 			infowindow.open(map, marker);
 		}
 
@@ -94,7 +111,7 @@ $.ajax({
 	for (let i = 0, ii = markerList.length; i < ii; i++){
 		naver.maps.Event.addListener(map, "click", getClickMap(i));
 		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
-		// naver.maps.Event.addListener(list[i], "click", getClickHandler(i));
+		naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
 	} 
 
 });
