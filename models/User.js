@@ -71,7 +71,7 @@ userSchema.path('password').validate(function(v){
 	if (!user.isNew){ // 회원 수정단계에서는 원래 패스워드가 맞는지, 컨폼 그리고 재확인 3단계를 거쳐야 한다
 		if (!user.currentPassword){
 			user.invalidate('currentPassword', 'Current Password is required');
-		} else if (!bcrypt.compareSync(user.currentPassword != user.originalPassword)){
+		} else if (!bcrypt.compareSync(user.currentPassword, user.originalPassword)){
 			user.invalidate('currentPassword', 'Current Password is invalid');
 		}
 
