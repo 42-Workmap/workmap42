@@ -5,8 +5,8 @@ var mapOptions = {
 
 let markerList = [];
 let infowindowList = [];
-let title = [];
-	
+let overlayList = [];
+
 var list = []
 var listEl = document.getElementById('placesList');
 
@@ -30,11 +30,15 @@ function spreadMarkers (groupval) {
 	
 		const getClickHandler = (i) => () => {
 			const marker = markerList[i];
+			const palces = document.querySelector('#placesList');
+			const card = list[i];
+
 			const infowindow = infowindowList[i];
 			if (infowindow.getMap()){
 				infowindow.close();
 			} else {
 				infowindow.open(map, marker);
+				card.querySelector("div").scrollIntoView();
 			}
 		};
 
@@ -46,26 +50,73 @@ function spreadMarkers (groupval) {
 		const getHoverHandler = (i) => ()  => {
 			const target = data[i];
 			const marker = markerList[i];
-		
-			const content = `<div class='hover_wrap'>
-			<div class='hover_title'>${target.company_name}</div>
-			</div>`;
-		
-			const titleWindow = new naver.maps.InfoWindow({
-				content: content, 
-				backgroundColor: '#ffffffff',
-				borderColor : '#00ff0000',
-				anchorSize: new naver.maps.Size(0,0)
+			const card =  list[i];
+			
+			card.querySelector("div").style.backgroundColor="powderblue";
+
+			/**
+			 * 사용자 정의 오버레이 구현하기
+			 */
+			var CustomOverlay = function(options) {
+				this._element = $(`
+						<div style="position:absolute;left:0;top:0;width:120px;height:30px;line-height:30px;text-align:center;
+						background-color:#fff;border:0.1px; border-radius:30px;margin:0px 0px 20px 15px;">${target.company_name}</div>
+					`);
+				this.setPosition(options.position);
+				this.setMap(options.map || null);
+			};
+
+			// CustomOverlay는 OverlayView를 상속받습니다.
+			CustomOverlay.prototype = new naver.maps.OverlayView();
+			CustomOverlay.prototype.constructor = CustomOverlay;
+			CustomOverlay.prototype.onAdd = function() {
+				var overlayLayer = this.getPanes().overlayLayer;
+				
+				this._element.appendTo(overlayLayer);
+			};
+			CustomOverlay.prototype.draw = function() {
+				// 지도 객체가 설정되지 않았으면 draw 기능을 하지 않습니다.
+				if (!this.getMap()) {
+					return;
+				}
+
+				// projection 객체를 통해 LatLng 좌표를 화면 좌표로 변경합니다.
+				var projection = this.getProjection(),
+					position = this.getPosition();
+				var pixelPosition = projection.fromCoordToOffset(position);
+				this._element.css('left', pixelPosition.x);
+				this._element.css('top', pixelPosition.y);
+			};
+
+			CustomOverlay.prototype.onRemove = function() {
+				this._element.remove();
+				// 이벤트 핸들러를 설정했다면 정리합니다.
+				this._element.off();
+			};
+
+			CustomOverlay.prototype.setPosition = function(position) {
+				this._position = position;
+				this.draw();
+			};
+
+			CustomOverlay.prototype.getPosition = function() {
+				return this._position;
+			};
+
+			// 오버레이 생성
+			var overlay = new CustomOverlay({
+				position: marker.getPosition(),
+				map: map
 			});
-		
-			titleWindow.open(map, marker);
-	
-			title.push(titleWindow);
+			overlayList.push(overlay);
 		};
 	
 		const getMouseOutHandler = (i) => () => {
-			title[0].close();
-			title.pop();
+			card = list[i];
+
+			overlayList[0].setMap(null);
+			overlayList.pop();
+			card.querySelector("div").style.backgroundColor="white";
 		}
 	
 		for (let i = 0; i < data.length; i++){
@@ -122,6 +173,16 @@ function spreadMarkers (groupval) {
 			el.onclick = function(){
 				map.morph(latlng, 12);
 				infowindow.open(map, marker);
+			}
+
+			el.onmouseover = function()
+			{
+				el.querySelector("div").style.backgroundColor="powderblue";
+			}
+
+			el.onmouseout = function()
+			{
+				el.querySelector("div").style.backgroundColor="white";
 			}
 		}
 		for (let i = 0, ii = markerList.length; i < ii; i++)
