@@ -19,7 +19,7 @@ passport.use('local-login',
 		usernameField : 'username', 
 		passwordField : 'password', 
 		passReqToCallback : true
-	}, 
+	},
 	function(req, username, password, done){
 		User.findOne({username:username})
 			.select({password:1})

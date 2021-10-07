@@ -5,25 +5,38 @@
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=0h8klh3dxv"></script>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f40a2802b6187dff8911469bf1c1ed0a&libraries=services"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/welcome.css" />
   </head>
   <body>
     <%- include('../partials/nav') %>
-
     <div class="container">
       <div class="row">
-        <div class="col-1" id="box-left">
+        <div class="col-1.5" id="box-left">
           <div class="row btn-row">
             <button onclick="spreadMarkers('')" type="submit" id="group_button" class="btn btn-lg" value="total">전체보기</button>
             <button onclick="spreadMarkers('game')" type="submit" id="group_button" class="btn btn-lg" value="game">게임</button> 
             <button onclick="spreadMarkers('software')" type="submit" id="group_button" class="btn btn-lg" value="software">소프트웨어</button>
+                      <p><img src="img/game48.png" alt="game stick image" ><br>게임</p>
+            <p><img src="img/bank48.png" alt="bank image"/><br>금융</p>
+            <p><img src="img/shopping48.png" alt="cart image"/><br>쇼핑</p>
+            <p><img src="img/social48.png" alt="social image"/><br>소셜네트워킹</p>
+            <p><img src="img/food48.png" alt="food image"><br>음식및음료</p>
+            <p><img src="img/life48.png" alt="entertainment image"><br>문화</p>
+            <p><img src="img/etc48.png" alt="plus image"><br>기타</p>
           </div>        
         </div>
         <div class="col-3">
             <form onsubmit="searchPlaces();return false;">
-              키워드 : <input type="text" value="" id="keyword" size="15">
-              <button type="submit">검색하기</button>
+                <div class="col-8">
+                  <input type="text" value="" id="keyword" size="15" autocomplete="off" class="form-control">
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-outline-info">검색하기</button>
+                </div>
             </form>
+             <hr>
             <div id="placesList"></div>
         </div>
         <div class="col mapcol" id="box-right">
@@ -31,8 +44,9 @@
         </div>
       </div>
     </div>
-
+    </div>
 <script type="text/javascript" src="/javascripts/main.js"></script>
 
+  <!--<%- include('../partials/bootstrap_tail') %>-->
   </body>
 </html>
