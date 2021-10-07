@@ -59,15 +59,15 @@ function spreadMarkers (groupval) {
 			});
 		
 			titleWindow.open(map, marker);
-
+	
 			title.push(titleWindow);
 		};
-
+	
 		const getMouseOutHandler = (i) => () => {
 			title[0].close();
 			title.pop();
 		}
-
+	
 		for (let i = 0; i < data.length; i++){
 			const target = data[i];
 			const latlng = new naver.maps.LatLng(target.lat, target.lng);
@@ -123,13 +123,13 @@ function spreadMarkers (groupval) {
 				map.morph(latlng, 12);
 				infowindow.open(map, marker);
 			}
-		
-			for (let i = 0, ii = markerList.length; i < ii; i++){
-				naver.maps.Event.addListener(map, "click", getClickMap(i));
-				naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
+		}
+		for (let i = 0, ii = markerList.length; i < ii; i++)
+		{
+			naver.maps.Event.addListener(map, "click", getClickMap(i));
+			naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
 			naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
 			naver.maps.Event.addListener(markerList[i],"mouseout", getMouseOutHandler(i));
-			} 
 		}
 	});
 };
