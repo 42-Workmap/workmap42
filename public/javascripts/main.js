@@ -3,31 +3,41 @@ var mapOptions = {
     zoom: 10
 };
 
+let markerList = [];
+let infowindowList = [];
+let title = [];
+	
+var list = []
+var listEl = document.getElementById('placesList');
+
 var map = new naver.maps.Map('map', mapOptions);
 
-$.ajax({
-	url:"/location",
-	type:"GET",
-}).done((response) => {
-	if (response.message !== "success") return ;
-	const data = response.data;
+spreadMarkers("");
 
-	let markerList = [];
-	let infowindowList = [];
-	var list = []
-	var listEl = document.getElementById('placesList');
-	let title = [];
+function spreadMarkers (groupval) {
+	$.ajax({
+		url:`/location/${groupval}`,
+		type:"GET",
+	}).done((response) => {
+		if (response.message !== "success") return ;
+		const data = response.data;
 
-	const getClickHandler = (i) => () => {
-		const marker = markerList[i];
-		const infowindow = infowindowList[i];
-		if (infowindow.getMap()){
-			infowindow.close();
-		} else {
-			infowindow.open(map, marker);
-		}
-	};
-	// function getClickHandler(i) { return function () {}}
+		removeAllChildNodes(listEl);
+		removeMarker();
+		removeWindows();
+
+		map.morph(new naver.maps.LatLng(37.3595704, 127.105399), 10);
+	
+		const getClickHandler = (i) => () => {
+			const marker = markerList[i];
+			const infowindow = infowindowList[i];
+			if (infowindow.getMap()){
+				infowindow.close();
+			} else {
+				infowindow.open(map, marker);
+			}
+		};
+		// function getClickHandler(i) { return function () {}}
 
 	const getClickMap = (i) => () => {
 		const infowindow = infowindowList[i];
@@ -111,16 +121,34 @@ $.ajax({
 			map.morph(latlng, 12);
 			infowindow.open(map, marker);
 		}
+	
+		for (let i = 0, ii = markerList.length; i < ii; i++){
+			naver.maps.Event.addListener(map, "click", getClickMap(i));
+			naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
+		  naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
+		  naver.maps.Event.addListener(markerList[i],"mouseout", getMouseOutHandler(i));
+		} 
+	});
+	
+}
 
-		listEl.appendChild(el);
-		list.push(el);
+function removeAllChildNodes(el) {
+	while (el.hasChildNodes()) {
+		el.removeChild(el.lastChild);
 	}
+}
 
-	for (let i = 0, ii = markerList.length; i < ii; i++){
-		naver.maps.Event.addListener(map, "click", getClickMap(i));
-		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
-		naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
-		naver.maps.Event.addListener(markerList[i],"mouseout", getMouseOutHandler(i));
-	} 
+function removeMarker() {
+	for (let i = 0; i < markerList.length; i++) {
+		markerList[i].setMap(null);
+	}
+	markerList = [];
+}
 
-});
+
+function removeWindows() {
+	for (let i = 0; i < infowindowList.length; i++) {
+		infowindowList[i].close();
+	}
+	infowindowList = [];
+}

@@ -43,3 +43,17 @@
 .user-form {
   width:400px;
 }
+
+/* .container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+} */
+
+@media  screen and (min-width: 992px){
+.container {
+  max-width:1300px;
+}	
+}
