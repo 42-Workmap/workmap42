@@ -82,7 +82,7 @@ function displayMarkers (response) {
 		const marker = markerList[i];
 		const card =  list[i];
 		
-		card.querySelector("div").style.backgroundColor="powderblue";
+		card.querySelector("div").style.backgroundColor="#FFCA28";
 
 		/**
 		 * 사용자 정의 오버레이 구현하기
@@ -166,9 +166,10 @@ function displayMarkers (response) {
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">${target.company_name}</h5>
+					<button type="button" class="btn-close" aria-label="Close"></button>
 					<hr>
 					<p class="card-text">${target.address}</p>
-					<a href="#" class="btn btn-outline-info btn-sm">홈페이지</a>
+					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
 					<button type="button" class="btn btn-outline-info btn-sm">Close</button>
 				</div>
 			</div>
