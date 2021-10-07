@@ -14,7 +14,22 @@ router.post('/', function(req, res, next){
 		// res.json({message:"success"});
 		});
 	});
-})
+});
+
+router.post('/query/', function(req, res, next){
+	console.log(req.body);
+	reg = new RegExp(req.body.keyword);
+	locationModel.find({company_name:{$regex:reg}}, {_id:0, _v:0}).then((result) => {
+		res.json({
+			message:"success", 
+			data:result
+		});
+	}).catch((error) => {
+		res.json({
+			message:"error",
+		});
+	});
+});
 
 router.get("/:group", (req, res, next) => {
 	locationModel.find({group:req.params.group}, {_id:0, _v:0}).then((result)=>{
@@ -25,9 +40,9 @@ router.get("/:group", (req, res, next) => {
 	}).catch((error) => {
 		res.json({
 			message:"error"
-		})
-	})
-})
+		});
+	});
+});
   
 router.get("/", (req, res, next) => {
 	locationModel.find({}, {_id:0, __v: 0}).then((result) => {
