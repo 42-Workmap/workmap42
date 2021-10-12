@@ -157,7 +157,7 @@ function displayMarkers (response) {
 			map:map, 
 			position : latlng,
 			icon : {
-				content : `<div class='marker'></div>`, 
+				content : `<div class='marker' id="${target.group}"></div>`, 
 				archor : new naver.maps.Point(7.5, 7.5), 
 			},
 		});

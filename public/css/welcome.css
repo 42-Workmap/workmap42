@@ -106,3 +106,38 @@ form {
 	margin-right: 0px;
 	padding: 0px;
 }
+
+.grouptext {
+	margin:auto;
+	text-align:center;
+	font-size:auto;
+}
+
+.fs-4 img {
+	width : 70px;
+}
+
+
+#software {
+	background:#ff0000;
+}
+
+#game {
+	background :#FF7F00
+}
+
+#entertainment {
+	background :#FFFF00;
+}
+
+#food {
+	background: #00FF00;
+}
+
+#living {
+	background:#0000FF;
+}
+
+#shopping {
+	background : #4B0082;
+}
