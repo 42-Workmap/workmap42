@@ -2,6 +2,12 @@ body {
 	font-family: 'Jua', sans-serif;
 }
 
+@media  screen and (min-width: 992px){
+	.container {
+	  max-width:1300px;
+	}	
+	}
+
 #map {
 	padding : 0px;
 	margin:0px;
