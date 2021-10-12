@@ -41,6 +41,11 @@ function spreadMarkers (groupval) {
 	}).done((response) => displayMarkers(response));
 };
 
+
+function cardClose(i) {
+	infowindowList[i].close();
+}
+
 function displayMarkers (response) {
 	if (response.message !== "success") return ;
 	const data = response.data;
@@ -166,11 +171,10 @@ function displayMarkers (response) {
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">${target.company_name}</h5>
-					<button type="button" class="btn-close" aria-label="Close"></button>
 					<hr>
 					<p class="card-text">${target.address}</p>
 					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
-					<button type="button" class="btn btn-outline-info btn-sm">Close</button>
+					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="cardClose(${i});">Close</button>
 				</div>
 			</div>
 		`;
