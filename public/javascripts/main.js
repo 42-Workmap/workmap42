@@ -200,8 +200,8 @@ function displayMarkers (response) {
 		list.push(el);
 
 		el.onclick = function(){
-			map.morph(latlng, 12);
 			infowindow.open(map, marker);
+			map.morph(latlng, 12);
 		}
 
 		el.onmouseover = function()
