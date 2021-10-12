@@ -52,7 +52,8 @@ function placeSearchCB(data, status, pagination){
 		let oldtarget = data[0];
 		for (let i = 0; i < data.length; i++){
 			if (data[i]['category_name'].indexOf("서비스,산업 > 기업") !== -1 || 
-			data[i]['category_name'].indexOf("인터넷") !== -1){
+			data[i]['category_name'].indexOf("인터넷") !== -1 || 
+			data[i]['category_name'].indexOf("소프트웨어")){
 				oldtarget = data[i];
 				let {category_group_code, category_group_name, distance, phone, address_name, id, x, y, place_name, ...target} = oldtarget;
 				target.lat = y;
