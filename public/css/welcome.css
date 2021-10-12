@@ -1,3 +1,7 @@
+body {
+	font-family: 'Jua', sans-serif;
+}
+
 #map {
 	padding : 0px;
 	margin:0px;
@@ -111,10 +115,22 @@ form {
 	margin:auto;
 	text-align:center;
 	font-size:auto;
+	font-family: 'Jua', sans-serif;
 }
 
+.btn-group-vertical {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
 .fs-4 img {
-	width : 70px;
+	width : 50px;
+	padding-top:15px;
+	padding-bottom:7px;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	
 }
 
 

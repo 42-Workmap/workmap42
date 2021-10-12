@@ -2,10 +2,10 @@
   font-family: 'Open Sans', sans-serif;
 } */
 
-@font-face {
+/* @font-face {
   font-family: RIDIBatang;
   src: url('./fonts/RIDIBatang.woff') format('woff');
-}
+} */
 
 .mywebsite, 
 .mywebsite:hover {
