@@ -35,7 +35,6 @@ li a:hover:not(.active) {
 
 /* green marker */
 .marker {
-	z-index: 10;
 	width : 15px;
 	height : 15px;
 	background : green ;
@@ -163,4 +162,8 @@ form {
 
 #shopping {
 	background : #4B0082;
+}
+
+#bank {
+	background : #9400D3; /*https://www.krishnamani.in/color-codes-for-rainbow-vibgyor-colours/ */
 }

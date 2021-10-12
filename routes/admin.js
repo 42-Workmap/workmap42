@@ -60,23 +60,23 @@ function checkPermissionAdmin(req, res, next){
 	});
 }
 
-const crawler = async (place_url) => {
-	try {
-		const browser = await puppeteer.launch({headless:true}); // 창 확인하고 싶으면 false
-		const page = await browser.newPage();
-		await page.goto(`${place_url}`);
-		await page.waitForSelector('.link_homepage');
-		if (await page.$('.link_homepage') !== null){
-			let result = await page.evaluate(() => document.querySelector('.link_homepage').textContent);
-			result = "http://" + result;
-			await page.close();
-			await browser.close();
-			return result;
-		} else {
-			await page.close();
-			await browser.close();
-		}
-	} catch(e) {
-		console.error(e);
-	}
-}
+// const crawler = async (place_url) => {
+// 	try {
+// 		const browser = await puppeteer.launch({headless:true}); // 창 확인하고 싶으면 false
+// 		const page = await browser.newPage();
+// 		await page.goto(`${place_url}`);
+// 		await page.waitForSelector('.link_homepage');
+// 		if (await page.$('.link_homepage') !== null){
+// 			let result = await page.evaluate(() => document.querySelector('.link_homepage').textContent);
+// 			result = "http://" + result;
+// 			await page.close();
+// 			await browser.close();
+// 			return result;
+// 		} else {
+// 			await page.close();
+// 			await browser.close();
+// 		}
+// 	} catch(e) {
+// 		console.error(e);
+// 	}
+// }
