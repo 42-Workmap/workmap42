@@ -32,8 +32,9 @@
         <thead class="thead-light">
           <tr>
             <th scope="col" style="width:150px">Company</th>
-            <th scope="col" style="width:150px">Address</th> <!--post author-->
-            <th scope="col">Category</th>
+            <th scope="col" >Category</th> <!--post author-->
+            <th scope="col">Address</th>
+            <th scope="col">Group</th>
             <th scope="col">Group</th>
             <th scope="col" style="width:100px"></th>
           </tr>
@@ -51,18 +52,23 @@
                 <div class="ellipsis"><%= place.company_name %></div>
               </td>
               <td>
-                <div class="ellipsis"><a href="<%= place.homepage %>" target="_blank"><%= place.homepage ? place.homepage : "" %></a></div>
-              </td>
-              <td>
                 <div class="ellipsis"><%= place.category_name %></div>
               </td>
+              <form action="/admin/<%= place._id %>?_method=put" method="post">
+                <td>
+                  <% if (place.homepage == undefined) {%>  
+                    <input type="text" name="homepage" value="<%= place.homepage %>" class="from-control d-inline" style="width:200px">
+                  <% } else {%>
+                    <div class="ellipsis"><a href="<%= place.homepage %>" target="_blank"><%= place.homepage ? place.homepage : "" %></a></div>
+                  <% } %>
+                </td>
               <td>
-                <form action="/admin/<%= place._id %>?_method=put" method="post">
                   <input type="text" id="group" name="group" value="<%= place.group %>" class="form-control d-inline" style="width:150px">
                   <input type="hidden" name="place_url" value="<%= place.place_url %>">
-                  <a class="btn btn-primary btn-sm" href="#" onclick="this.parentElement.submit()">Update</a>
-                </form>
               </td>
+              <td><button type="submit" class="btn btn-primary">Submit</button></td>
+            </form>
+
               <td>
                  <form action="/admin/<%= place._id %>?_method=delete" method="post" class="d-inline">
                   <a class="btn btn-danger btn-sm" href="#" onclick="confirm('Do you want to delete this?')?this.parentElement.submit():null;">Delete</a>

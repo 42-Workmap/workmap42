@@ -41,6 +41,11 @@ function spreadMarkers (groupval) {
 	}).done((response) => displayMarkers(response));
 };
 
+
+function cardClose(i) {
+	infowindowList[i].close();
+}
+
 function displayMarkers (response) {
 	if (response.message !== "success") return ;
 	const data = response.data;
@@ -89,8 +94,8 @@ function displayMarkers (response) {
 		 */
 		var CustomOverlay = function(options) {
 			this._element = $(`
-					<div style="position:absolute;left:0;top:0;width:120px;height:30px;line-height:30px;text-align:center;
-					background-color:#fff;border:0.1px; border-radius:30px;margin:0px 0px 20px 15px;">${target.company_name}</div>
+					<div style="z-index:1;position:absolute;left:0;top:0;width:auto;height:30px;line-height:30px;text-align:center;
+					background-color:#fff;border:0.1px; border-radius:30px;margin:0px 10px 20px 15px; padding: 0px 20px 0px 20px;">${target.company_name}</div>
 				`);
 			this.setPosition(options.position);
 			this.setMap(options.map || null);
@@ -157,7 +162,7 @@ function displayMarkers (response) {
 			map:map, 
 			position : latlng,
 			icon : {
-				content : `<div class='marker'></div>`, 
+				content : `<div class='marker' id="${target.group}"></div>`, 
 				archor : new naver.maps.Point(7.5, 7.5), 
 			},
 		});
@@ -166,11 +171,10 @@ function displayMarkers (response) {
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">${target.company_name}</h5>
-					<button type="button" class="btn-close" aria-label="Close"></button>
 					<hr>
 					<p class="card-text">${target.address}</p>
 					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
-					<button type="button" class="btn btn-outline-info btn-sm">Close</button>
+					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="cardClose(${i});">Close</button>
 				</div>
 			</div>
 		`;
@@ -200,8 +204,8 @@ function displayMarkers (response) {
 		list.push(el);
 
 		el.onclick = function(){
-			map.morph(latlng, 12);
 			infowindow.open(map, marker);
+			map.morph(latlng, 12);
 		}
 
 		el.onmouseover = function()

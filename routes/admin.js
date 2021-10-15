@@ -23,11 +23,20 @@ router.get('/', (req, res, next) => {
 
 router.put('/:id', function(req, res, next){
 	console.log(req.body);
-	crawler(req.body.place_url).then(homepg => {
-		locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group, homepage:homepg}}, function(err, result){
+	if (req.body.homepage) {
+		locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group, homepage:req.body.homepage}}, function(err, result){
 			res.redirect('/admin');
 		});
-	})
+	} else {
+		locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group}}, function(err, result){
+			res.redirect('/admin');
+		});
+	}
+	// crawler(req.body.place_url).then(homepg => {
+	// 	locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group, homepage:homepg}}, function(err, result){
+	// 		res.redirect('/admin');
+	// 	});
+	// })
 	
 })
 
@@ -51,23 +60,23 @@ function checkPermissionAdmin(req, res, next){
 	});
 }
 
-const crawler = async (place_url) => {
-	try {
-		const browser = await puppeteer.launch({headless:true}); // 창 확인하고 싶으면 false
-		const page = await browser.newPage();
-		await page.goto(`${place_url}`);
-		await page.waitForSelector('.link_homepage');
-		if (await page.$('.link_homepage') !== null){
-			let result = await page.evaluate(() => document.querySelector('.link_homepage').textContent);
-			result = "http://" + result;
-			await page.close();
-			await browser.close();
-			return result;
-		} else {
-			await page.close();
-			await browser.close();
-		}
-	} catch(e) {
-		console.error(e);
-	}
-}
+// const crawler = async (place_url) => {
+// 	try {
+// 		const browser = await puppeteer.launch({headless:true}); // 창 확인하고 싶으면 false
+// 		const page = await browser.newPage();
+// 		await page.goto(`${place_url}`);
+// 		await page.waitForSelector('.link_homepage');
+// 		if (await page.$('.link_homepage') !== null){
+// 			let result = await page.evaluate(() => document.querySelector('.link_homepage').textContent);
+// 			result = "http://" + result;
+// 			await page.close();
+// 			await browser.close();
+// 			return result;
+// 		} else {
+// 			await page.close();
+// 			await browser.close();
+// 		}
+// 	} catch(e) {
+// 		console.error(e);
+// 	}
+// }

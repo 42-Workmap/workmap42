@@ -1,11 +1,11 @@
-/* body {
-  font-family: 'Open Sans', sans-serif;
-} */
+body {
+  font-family: 'Jua', sans-serif;
+}
 
-@font-face {
+/* @font-face {
   font-family: RIDIBatang;
   src: url('./fonts/RIDIBatang.woff') format('woff');
-}
+} */
 
 .mywebsite, 
 .mywebsite:hover {

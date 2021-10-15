@@ -1,3 +1,13 @@
+body {
+	font-family: 'Jua', sans-serif;
+}
+
+@media  screen and (min-width: 992px){
+	.container {
+	  max-width:1300px;
+	}	
+}
+
 #map {
 	padding : 0px;
 	margin:0px;
@@ -25,12 +35,12 @@ li a:hover:not(.active) {
 
 /* green marker */
 .marker {
-width : 15px;
-height : 15px;
-background : green ;
-opacity : 60%; 
-border : 1px solid black;
-border-radius : 50%;
+	width : 15px;
+	height : 15px;
+	background : green ;
+	opacity : 60%; 
+	border : 1px solid black;
+	border-radius : 50%;
 }
 
 #group_game {
@@ -105,4 +115,55 @@ font-weight : normal;
 form {
 	margin-right: 0px;
 	padding: 0px;
+}
+
+.grouptext {
+	margin:auto;
+	text-align:center;
+	font-size:auto;
+	font-family: 'Jua', sans-serif;
+}
+
+.btn-group-vertical {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.fs-4 img {
+	width : 40px;
+	padding-top:15px;
+	padding-bottom:7px;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+#software {
+	background:#ff0000;
+}
+
+#game {
+	background :#FF7F00
+}
+
+#entertainment {
+	background :#FFFF00;
+}
+
+#food {
+	background: #00FF00;
+}
+
+#living {
+	background:#0000FF;
+}
+
+#shopping {
+	background : #4B0082;
+}
+
+#bank {
+	background : #9400D3; /*https://www.krishnamani.in/color-codes-for-rainbow-vibgyor-colours/ */
 }
