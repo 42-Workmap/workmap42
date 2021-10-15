@@ -16,6 +16,19 @@ router.post('/', function(req, res, next){
 	});
 });
 
+router.get("/", (req, res, next) => {
+	locationModel.find({group:{$exists:true}}, {_id:0, __v: 0}).then((result) => {
+	  res.json({
+		message:"success",
+		data:result,
+	  });
+	}).catch((error) => {
+	  res.json({
+		message:"error",
+	  });
+	});
+  });
+
 router.post('/query/', function(req, res, next){
 	console.log(req.body);
 	reg = new RegExp(req.body.keyword);
@@ -31,6 +44,20 @@ router.post('/query/', function(req, res, next){
 	});
 });
 
+router.get('/getnames', function (req, res, next){
+	locationModel.find({group:{$exists:true}}, {company_name:1, _id:0}).then((result) => {
+		res.json({
+			message:"success  get names",
+			data:result,
+		});
+		}).catch((error) => {
+		res.json({
+			message:"error",
+		});
+	});
+})
+  
+
 router.get("/:group", (req, res, next) => {
 	locationModel.find({group:req.params.group}, {_id:0, _v:0}).then((result)=>{
 		res.json({
@@ -43,20 +70,7 @@ router.get("/:group", (req, res, next) => {
 		});
 	});
 });
-  
-router.get("/", (req, res, next) => {
-	locationModel.find({}, {_id:0, __v: 0}).then((result) => {
-	  res.json({
-		message:"success",
-		data:result,
-	  });
-	}).catch((error) => {
-	  res.json({
-		message:"error",
-	  });
-	});
-  });
-  
+
 module.exports = router;
 
 // private function 

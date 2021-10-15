@@ -3,3 +3,6 @@ config/userConfig.json
 studycrawling/
 bing_scraper/
 google-images-download/
+public/img/download/*/g_0002*
+public/img/download/*/g_0003*
+public/img/download/*/g_0004*

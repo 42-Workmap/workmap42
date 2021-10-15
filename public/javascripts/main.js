@@ -14,7 +14,6 @@ var map = new naver.maps.Map('map', mapOptions);
 
 spreadMarkers("");
 
-
 function querySearchDB() {
 	let keyword = $("#keyword").val();
 	onSearchDB(keyword);
@@ -167,8 +166,14 @@ function displayMarkers (response) {
 			},
 		});
 
+		const imgpath = encodeURI("img/download/"+target.company_name+"/g_0000.jpg");
+		// console.log(imgpath, newpath);
+
 		const content = `
 			<div class="card">
+				<div class="img-wrapper">
+					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
+				</div>
 				<div class="card-body">
 					<h5 class="card-title">${target.company_name}</h5>
 					<hr>
@@ -205,7 +210,8 @@ function displayMarkers (response) {
 
 		el.onclick = function(){
 			infowindow.open(map, marker);
-			map.morph(latlng, 12);
+			const newlng = new naver.maps.LatLng(target.lat + 0.03, target.lng);
+			map.morph(newlng, 12);
 		}
 
 		el.onmouseover = function()
