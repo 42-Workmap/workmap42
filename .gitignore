@@ -1,3 +1,5 @@
 node_modules/
 config/userConfig.json
 studycrawling/
+bing_scraper/
+google-images-download/
