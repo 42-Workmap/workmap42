@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="/css/welcome.css" />
   </head>
   <body>
+
     <%- include('../partials/nav') %>
     <div class="container">
       <div class="row">
-        <div class="col-1.5" id="box-left" style="align:center;">
+        <div class="col-1.5" id="box-left">
           <div class="btn-group-vertical" style="cursor: pointer;" >
             <div class="fs-4 mb-3" onclick="spreadMarkers('')">
               <img src="img/svg/building.svg" >
@@ -39,9 +40,9 @@
               <img src="img/svg/game.svg" style="filter: invert(79%) sepia(51%) saturate(7500%) hue-rotate(80deg) brightness(78%) contrast(124%);">
               <div class="grouptext" >Game</div>
             </div>
-            <div class="fs-4 mb-3" onclick="spreadMarkers('living')">
+            <div class="fs-4 mb-3" onclick="spreadMarkers('network')">
               <img src="img/svg/living.svg" style="filter: invert(8%) sepia(100%) saturate(7439%) hue-rotate(245deg) brightness(78%) contrast(126%);">
-              <div class="grouptext">Living</div>
+              <div class="grouptext">Network</div>
             </div>
             <div class="fs-4 mb-3" onclick="spreadMarkers('shopping')">
               <img src="img/svg/cart3.svg" style="filter: invert(13%) sepia(66%) saturate(5440%) hue-rotate(273deg) brightness(64%) contrast(119%);">
@@ -51,7 +52,6 @@
               <img src="img/svg/phone.svg" style="filter: invert(12%) sepia(75%) saturate(7498%) hue-rotate(283deg) brightness(87%) contrast(115%);" >
               <div class="grouptext" >Software</div>
             </div>
-            
             
           </div>        
         </div>
