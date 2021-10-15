@@ -1,3 +1,26 @@
-<h1><%= message %></h1>
+<!-- <h1><%= message %></h1>
 <h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<pre><%= error.stack %></pre> -->
+
+<!DOCTYPE html>
+<head>
+    <%- include('./partials/head') %>
+    <link rel="stylesheet" href="/css/404.css" />
+
+</head>
+<body>
+    <%- include('./partials/nav') %>
+
+    <main>
+        <div class="message" >
+            <h1>404</h1>
+            <h1>해당 페이지를 찾지 못했습니다.</h1>
+            <p>주소가 잘못되었거나 더 이상 제공되지 않는 페이지 입니다.</p>
+            <a href="/">메인페이지로 이동 🏠🏃‍♂️ &zwj;</a>
+        </div>
+        <div class="img">
+            <img src="img/svg/emoji-dizzy.svg" alt="" id="emoji-dizzy">
+        </div>
+    </main>
+</body>
+</html>

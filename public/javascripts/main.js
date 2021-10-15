@@ -93,8 +93,10 @@ function displayMarkers (response) {
 		 */
 		var CustomOverlay = function(options) {
 			this._element = $(`
-					<div style="z-index:1;position:absolute;left:0;top:0;width:auto;height:30px;line-height:30px;text-align:center;
-					background-color:#fff;border:0.1px; border-radius:30px;margin:0px 10px 20px 15px; padding: 0px 20px 0px 20px;">${target.company_name}</div>
+					<div style="position:absolute;left:0;top:0;width:auto;height:30px;line-height:30px;text-align:center;
+					background-color:#fff;border:0.1px; border-radius:30px;margin:0px 10px 20px 15px; padding: 0px 20px 0px 20px;">
+						${target.company_name}
+					</div>
 				`);
 			this.setPosition(options.position);
 			this.setMap(options.map || null);
@@ -104,7 +106,7 @@ function displayMarkers (response) {
 		CustomOverlay.prototype = new naver.maps.OverlayView();
 		CustomOverlay.prototype.constructor = CustomOverlay;
 		CustomOverlay.prototype.onAdd = function() {
-			var overlayLayer = this.getPanes().overlayLayer;
+			var overlayLayer = this.getPanes().floatPane;
 			
 			this._element.appendTo(overlayLayer);
 		};
