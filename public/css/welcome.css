@@ -66,6 +66,28 @@ padding:30px;
 font-weight : normal;
 }
 
+/* #box-left {
+} */
+
+@media only screen and (min-width:992px) {
+	#box-left {
+		height:90vh;
+		position : relative;
+		left : 0;
+		right : 0;
+		bottom : 0;
+		overflow-y: auto;
+	}
+}
+
+@media not screen and (min-width:992px) {
+	#box-left {
+		height:auto	;
+	}
+	#response {
+		width : 100%;
+	}
+}
 /* placesList */
 #placesList {
 
@@ -118,9 +140,11 @@ form {
 }
 
 .grouptext {
+	width : 90%;
+	left : 0;
 	margin:auto;
 	text-align:center;
-	font-size:auto;
+	font-size:1vw;
 	font-family: 'Jua', sans-serif;
 }
 
@@ -131,8 +155,8 @@ form {
 }
 
 .fs-4 img {
-	width : 40px;
-	padding-top:15px;
+	width : 30px;
+	padding-top:10px;
 	padding-bottom:7px;
 	display:block;
 	margin-left:auto;
