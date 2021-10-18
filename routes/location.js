@@ -32,7 +32,7 @@ router.get("/", (req, res, next) => {
 router.post('/query/', function(req, res, next){
 	console.log(req.body);
 	reg = new RegExp(req.body.keyword);
-	locationModel.find({company_name:{$regex:reg}}, {_id:0, _v:0}).then((result) => {
+	locationModel.find({company_name:{$regex:reg}, group:{$exists:true}}, {_id:0, _v:0}).then((result) => {
 		res.json({
 			message:"success", 
 			data:result
