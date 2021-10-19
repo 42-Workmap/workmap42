@@ -71,10 +71,12 @@ function displayMarkers (response) {
 		if (infowindow.getMap()){
 			infowindow.close();
 		} else {
-			infowindow.open(map, marker);
-			map.setOptions("center", marker.getPosition())
+			// map.setOptions("center", marker.getPosition());
 
 			map.morph(marker.getPosition(), 12);
+
+			infowindow.open(map, marker);
+
 			card.querySelector("div").scrollIntoView();
 		}
 	};
