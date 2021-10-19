@@ -48,28 +48,6 @@ li a:hover:not(.active) {
 	width:100%;
 }
 
-/* infowindow css */
-.infowindow_wrap {
-background : white;
-/* padding : 0px;
-margin : 0px;
-border : 1px solid rgba(0,0,0,0.2); */
-}
-
-.infowindow_name {
-/* font-size : 15px; */
-/* font-weight: bolrder; */
-}
-
-.infowindow_address {
-/* font-size : 15px; */
-padding:30px;
-font-weight : normal;
-}
-
-/* #box-left {
-} */
-
 @media only screen and (min-width:992px) {
 	#box-left {
 		height:90vh;
@@ -97,13 +75,9 @@ font-weight : normal;
 	left : 0;
 	right: 0;
 	bottom : 0;
-	/* width : 200px; */
-	/* margin : 50px 0px 30px 10px; */
 	padding : 5px;
 	overflow-y : auto;
 	background : rgba(255,255,255,0.7);
-	/* font-size:12px; */
-	/* border-radius:10px; */
 	width:100%;
 }
 
@@ -115,23 +89,6 @@ font-weight : normal;
 	cursor : pointer;
 	width : 100%;
 
-}
-/* 
-#placesList .item span {
-	display:block;
-	margin-top : 4px;
-}
-
-#placesList .item .info {
-	font-size: 15px;
-	text-overflow : ellipsis;
-	overflow : hidden;
-	white-space : nowrap;
-	padding : 20px;
-}
-
-#placesList .item .info_company {
-	font-weight : bolder;
 }
 
 /* keyword 속한 검색창 */
