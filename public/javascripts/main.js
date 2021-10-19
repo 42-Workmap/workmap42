@@ -93,7 +93,7 @@ function displayMarkers (response) {
 		 */
 		var CustomOverlay = function(options) {
 			this._element = $(`
-					<div style="position:absolute;left:0;top:0;width:auto;height:30px;line-height:30px;text-align:center;
+					<div style="position:absolute;left:0;top:0;width:auto;height:auto;overflow-x:hidden;line-height:30px;text-align:center;
 					background-color:#fff;border:0.1px; border-radius:30px;margin:0px 10px 20px 15px; padding: 0px 20px 0px 20px;">
 						${target.company_name}
 					</div>

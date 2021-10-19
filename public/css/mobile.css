@@ -200,8 +200,8 @@ form {
 	position: relative; 
 	margin : auto;
 	float: center;
-	width: 10vw; 
-	height: 10vw; 
+	width: 15vw; 
+	height: 15vw; 
 	display:flex;
 	justify-content: center;
 } 
@@ -212,4 +212,18 @@ form {
 	min-width: 60%; 
 	max-height: 100%; 
 	-ms-interpolation-mode: bicubic; 
+}
+
+.card {
+	width:35vw;
+	font-size:calc(9px + 5 * ((100vw - 500px) / 900));
+}
+
+.card-title {
+	font-size:calc(11px + 5 * ((100vw - 500px) / 900));
+}
+
+.btn-outline-info {
+	width : 10vw;
+	font-size : calc(9px + 5 * ((100vw - 500px) / 900));
 }
