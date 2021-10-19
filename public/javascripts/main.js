@@ -72,6 +72,9 @@ function displayMarkers (response) {
 			infowindow.close();
 		} else {
 			infowindow.open(map, marker);
+			map.setOptions("center", marker.getPosition())
+
+			map.morph(marker.getPosition(), 12);
 			card.querySelector("div").scrollIntoView();
 		}
 	};

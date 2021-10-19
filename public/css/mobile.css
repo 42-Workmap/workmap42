@@ -9,6 +9,7 @@ body {
 }
 
 #map {
+	width : 100%;
 	padding : 0px;
 	margin:0px;
 }
@@ -155,9 +156,9 @@ form {
 }
 
 .fs-4 img {
-	width : 30px;
-	padding-top:10px;
-	padding-bottom:7px;
+	width : 4vw;
+	padding-top:1vh;
+	padding-bottom:1vh;
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
