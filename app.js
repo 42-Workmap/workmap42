@@ -8,6 +8,7 @@ var logger = require('morgan');
 var createError = require('http-errors');
 const { next } = require('cheerio/lib/api/traversing');
 var app = express();
+var util = require('./util');
 
 app.use(function (req, res, next) {
   if (req.url && req.url.indexOf('.htm') > -1) {
@@ -69,10 +70,11 @@ var urlNotEncodedParser = function(req, res, next)
 
 // Routes
 app.use('/', require('./routes/home'));
-app.use('/posts', require('./routes/posts'));
+app.use('/posts', util.getPostQueryString, require('./routes/posts'));
 app.use('/users', require('./routes/users'));
 app.use('/location', require('./routes/location'));
 app.use('/admin', require('./routes/admin'));
+app.use('/comments', util.getPostQueryString, require('./routes/comments'));
 
 // app.get(`/:transparam`, (req, res) => {
 //   const paramDecoded = decodeURIComponent(req.params.transparam);
