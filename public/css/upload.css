@@ -2,7 +2,6 @@ body {
 	padding: 0px;
 	margin : 0px;
 }
-  
 
 #map {
 	padding : 0px;
@@ -61,15 +60,15 @@ body {
 #menu_wrap {
 	position : absolute;
 	top : 0;
-	left : 0;
+	left : relative;
 	bottom : 0;
-	width : 200px;
-	margin : 50px 0 30px 10px;
-	padding : 5px;
+	width : 300px;
+	margin : 50px 0 30px 0px;
+	padding : 0px;
 	overflow-y : auto;
 	background : rgba(255,255,255,0.7);
 	z-index:1;
-	font-size:12px;
+	font-size:14px;
 	border-radius:10px;
 }
 
@@ -81,14 +80,29 @@ body {
 	margin : 3px 0;
 }
 
+#placesList {
+
+	position : absolute;
+	top : 50px;
+	left : 0;
+	right: 0;
+	bottom : 0;
+	padding : 5px;
+	overflow-y : auto;
+	background : rgba(255,255,255,0.7);
+	width:100%;
+}
+
 #placesList .item {
+
 	position : relative;
 	border-bottom:1px solid #888;
-	overflow : hideen;
+	overflow : hidden;
 	cursor : pointer;
 	width : 100%;
 
 }
+
 
 #placesList .item span {
 	display:block;

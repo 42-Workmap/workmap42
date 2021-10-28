@@ -9,15 +9,16 @@
 </head>
 <body>
     <%- include('../partials/nav') %>
-
-	<div id="map" style="width:100%;height:100vh"></div>
-	<div id="menu_wrap">
-		<form onsubmit="searchPlaces(); return false">
-			키워드: <input type="text" value="강남역" id="keyword" size="15" />
-			<button type="submit">검색하기</button>
-		</form>
-		<div id="placesList"></div>
-	</div> 
+	<div class="container">
+		<div id="map" style="width:100%;height:100vh"></div>
+		<div id="menu_wrap">
+			<form onsubmit="searchPlaces(); return false">
+				 키워드: <input type="text" value="강남역" id="keyword" size="15" />
+				<button type="submit" class="btn-sm btn-info">검색하기</button>
+			</form>
+			<div id="placesList"></div>
+		</div> 
+	</div>
 	<script type="text/javascript" src="javascripts/upload.js"></script>
 </body>
 </html>

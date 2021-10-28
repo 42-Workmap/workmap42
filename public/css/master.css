@@ -2,6 +2,12 @@ body {
   font-family: 'Jua', sans-serif;
 }
 
+@media  screen and (min-width: 992px){
+	.container {
+	  max-width:1300px;
+	}	
+}
+
 /* @font-face {
   font-family: RIDIBatang;
   src: url('./fonts/RIDIBatang.woff') format('woff');
