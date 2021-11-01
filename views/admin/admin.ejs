@@ -79,7 +79,31 @@
         </tbody>
 
       </table>
+      <nav class="col-12">
+        <%
+          var offset = 10;
+          var previousBtnEnabled = currentPage>1;
+          var nextBtnEnabled = currentPage<maxPage;
+        %>
+        <ul class="pagination pagination-sm justify-content-center align-items-center h-100 mb-0">            <li class="page-item <%= previousBtnEnabled?'':'disabled' %>">
+          <a class="page-link" href="/admin?page=<%= currentPage-1 %>&limit=<%= limit %>" <%= previousBtnEnabled?'':'tabindex=-1' %>>«</a>
+        </li>
+        <% for(i=1;i<=maxPage;i++){ %>
+          <% if(i==1 || i==maxPage || (i>=currentPage-offset && i<=currentPage+offset)){ %>
+            <li class="page-item <%= currentPage==i?'active':'' %>"><a class="page-link" href="/admin?page=<%= i %>&limit=<%= limit %>"> <%= i %> </a></li>
+          <!-- <% } else if(i==2 || i==maxPage-1){ %>
+            <li><a class="page-link">...</a></li>
+          <% } %> -->
+        <% } %>
+        <li class="page-item <%= nextBtnEnabled?'':'disabled' %>">
+          <a class="page-link" href="/admin?page=<%= currentPage+1 %>&limit=<%= limit %>" <%= nextBtnEnabled?'':'tabindex=-1' %>>»</a>
+        </li>
+      </ul>
+    </nav>
     </div>
+
+    
+
 <script type="text/javascript" src="/javascripts/usekakao.js"></script>
 
   </body>
