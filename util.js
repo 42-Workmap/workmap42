@@ -52,7 +52,7 @@ util.getPostQueryString = function(req, res, next){
 	next();
 }
 
-util.converToTrees = function(array, idFieldName, parentIdFieldName, childrenFieldName) {
+util.convertToTrees = function(array, idFieldName, parentIdFieldName, childrenFieldName) {
 	var cloned = array.slice();
 
 	for (var i=cloned.length-1;i>-1;i--){
