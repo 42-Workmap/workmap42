@@ -45,6 +45,118 @@ function cardClose(i) {
 	infowindowList[i].close();
 }
 
+function makeOverlay(target, marker){
+	/**
+		 * 사용자 정의 오버레이 구현하기
+		 */
+	 var CustomOverlay = function(options) {
+		this._element = $(`
+				<div style="position:absolute;left:0;top:0;width:auto;height:auto;overflow-x:hidden;line-height:30px;text-align:center;
+				background-color:#fff;border:0.1px; border-radius:30px;margin:0px 10px 20px 15px; padding: 0px 20px 0px 20px;">
+					${target.company_name}
+				</div>
+			`);
+		this.setPosition(options.position);
+		this.setMap(options.map || null);
+	};
+
+	// CustomOverlay는 OverlayView를 상속받습니다.
+	CustomOverlay.prototype = new naver.maps.OverlayView();
+	CustomOverlay.prototype.constructor = CustomOverlay;
+	CustomOverlay.prototype.onAdd = function() {
+		var overlayLayer = this.getPanes().floatPane;
+		
+		this._element.appendTo(overlayLayer);
+	};
+	CustomOverlay.prototype.draw = function() {
+		// 지도 객체가 설정되지 않았으면 draw 기능을 하지 않습니다.
+		if (!this.getMap()) {
+			return;
+		}
+
+		// projection 객체를 통해 LatLng 좌표를 화면 좌표로 변경합니다.
+		var projection = this.getProjection(),
+			position = this.getPosition();
+		var pixelPosition = projection.fromCoordToOffset(position);
+		this._element.css('left', pixelPosition.x);
+		this._element.css('top', pixelPosition.y);
+	};
+
+	CustomOverlay.prototype.onRemove = function() {
+		this._element.remove();
+		// 이벤트 핸들러를 설정했다면 정리합니다.
+		this._element.off();
+	};
+
+	CustomOverlay.prototype.setPosition = function(position) {
+		this._position = position;
+		this.draw();
+	};
+
+	CustomOverlay.prototype.getPosition = function() {
+		return this._position;
+	};
+
+	// 오버레이 생성
+	var overlay = new CustomOverlay({
+		position: marker.getPosition(),
+		map: map
+	});
+	overlayList.push(overlay);
+}
+
+function makeInfoContent(i, target, imgpath)
+{
+	const content = `
+			<div class="card">
+				<div class="img-wrapper">
+					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">${target.company_name}</h5>
+					<hr>
+					<p class="card-text">${target.address}</p>
+					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
+					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="cardClose(${i});">Close</button>
+				</div>
+			</div>
+		`;
+	return content;
+}
+
+function makeCompanyList(target, marker, infowindow)
+{
+	let el = document.createElement("div");
+		let itemStr = `
+			<div class="card">
+				<div class="card-body">
+					<h6 class="card-title">${target.company_name}</h6>
+					<span class="card-text">${target.address}</span>
+				</div>`;
+
+		el.innerHTML = itemStr;
+		el.className = "item"; 
+
+		listEl.appendChild(el);
+		list.push(el);
+
+		el.onclick = function(){
+			infowindow.open(map, marker);
+			const newlng = new naver.maps.LatLng(target.lat + 0.03, target.lng);
+			map.morph(newlng, 12);
+		}
+
+		el.onmouseover = function()
+		{
+			el.querySelector("div").style.backgroundColor="powderblue";
+		}
+
+		el.onmouseout = function()
+		{
+			el.querySelector("div").style.backgroundColor="white";
+		}
+}
+
 function displayMarkers (response) {
 	if (response.message !== "success") return ;
 	const data = response.data;
@@ -87,65 +199,8 @@ function displayMarkers (response) {
 		const marker = markerList[i];
 		const card =  list[i];
 		
+		makeOverlay(target, marker);
 		card.querySelector("div").style.backgroundColor="#FFCA28";
-
-		/**
-		 * 사용자 정의 오버레이 구현하기
-		 */
-		var CustomOverlay = function(options) {
-			this._element = $(`
-					<div style="position:absolute;left:0;top:0;width:auto;height:auto;overflow-x:hidden;line-height:30px;text-align:center;
-					background-color:#fff;border:0.1px; border-radius:30px;margin:0px 10px 20px 15px; padding: 0px 20px 0px 20px;">
-						${target.company_name}
-					</div>
-				`);
-			this.setPosition(options.position);
-			this.setMap(options.map || null);
-		};
-
-		// CustomOverlay는 OverlayView를 상속받습니다.
-		CustomOverlay.prototype = new naver.maps.OverlayView();
-		CustomOverlay.prototype.constructor = CustomOverlay;
-		CustomOverlay.prototype.onAdd = function() {
-			var overlayLayer = this.getPanes().floatPane;
-			
-			this._element.appendTo(overlayLayer);
-		};
-		CustomOverlay.prototype.draw = function() {
-			// 지도 객체가 설정되지 않았으면 draw 기능을 하지 않습니다.
-			if (!this.getMap()) {
-				return;
-			}
-
-			// projection 객체를 통해 LatLng 좌표를 화면 좌표로 변경합니다.
-			var projection = this.getProjection(),
-				position = this.getPosition();
-			var pixelPosition = projection.fromCoordToOffset(position);
-			this._element.css('left', pixelPosition.x);
-			this._element.css('top', pixelPosition.y);
-		};
-
-		CustomOverlay.prototype.onRemove = function() {
-			this._element.remove();
-			// 이벤트 핸들러를 설정했다면 정리합니다.
-			this._element.off();
-		};
-
-		CustomOverlay.prototype.setPosition = function(position) {
-			this._position = position;
-			this.draw();
-		};
-
-		CustomOverlay.prototype.getPosition = function() {
-			return this._position;
-		};
-
-		// 오버레이 생성
-		var overlay = new CustomOverlay({
-			position: marker.getPosition(),
-			map: map
-		});
-		overlayList.push(overlay);
 	};
 
 	const getMouseOutHandler = (i) => () => {
@@ -170,23 +225,8 @@ function displayMarkers (response) {
 		});
 
 		const imgpath = encodeURI("img/download/"+target.company_name+"/g_0000.jpg");
-		// console.log(imgpath, newpath);
-
-		const content = `
-			<div class="card">
-				<div class="img-wrapper">
-					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">${target.company_name}</h5>
-					<hr>
-					<p class="card-text">${target.address}</p>
-					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
-					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="cardClose(${i});">Close</button>
-				</div>
-			</div>
-		`;
-
+		content = makeInfoContent(i, target, imgpath);
+		
 		const infowindow = new naver.maps.InfoWindow({
 			content:content, 
 			backgroundColor : "#00ff0000", 
@@ -197,35 +237,7 @@ function displayMarkers (response) {
 		markerList.push(marker);
 		infowindowList.push(infowindow);
 
-		let el = document.createElement("div");
-		let itemStr = `
-			<div class="card">
-				<div class="card-body">
-					<h6 class="card-title">${target.company_name}</h6>
-					<span class="card-text">${target.address}</span>
-				</div>`;
-
-		el.innerHTML = itemStr;
-		el.className = "item"; 
-
-		listEl.appendChild(el);
-		list.push(el);
-
-		el.onclick = function(){
-			infowindow.open(map, marker);
-			const newlng = new naver.maps.LatLng(target.lat + 0.03, target.lng);
-			map.morph(newlng, 12);
-		}
-
-		el.onmouseover = function()
-		{
-			el.querySelector("div").style.backgroundColor="powderblue";
-		}
-
-		el.onmouseout = function()
-		{
-			el.querySelector("div").style.backgroundColor="white";
-		}
+		makeCompanyList(target, marker, infowindow);
 	}
 
 	for (let i = 0, ii = markerList.length; i < ii; i++){
