@@ -5,6 +5,7 @@ var locationModel = require('../models/location');
 var util = require('../util');
 var puppeteer = require('puppeteer');
 var fs = require('fs');
+// const { post } = require('request');
 
 // router.get('/', util.isLoggedin, checkPermissionAdmin, (req, res, next) => {
 // 	locationModel.find({})
@@ -13,13 +14,37 @@ var fs = require('fs');
 // 	});
 // });
 
-router.get('/', (req, res, next) => {
-	locationModel.find({})
+// router.get('/', (req, res, next) => {
+// 	locationModel.find({})
+// 	.sort('group')
+// 	.exec(function (err, places){
+// 		res.render('admin/admin', {places:places});
+// 	});
+// });
+
+router.get('/', async function(req, res){
+	var page = Math.max(1, parseInt(req.query.page));
+	var limit = Math.max(1, parseInt(req.query.limit));
+	page = !isNaN(page)?page:1;
+	limit = !isNaN(limit)?limit:20;
+
+	var skip = (page-1)*limit;
+	var count = await locationModel.countDocuments({});
+	var maxPage = Math.ceil(count/limit);
+	var places = await locationModel.find({})
 	.sort('group')
-	.exec(function (err, places){
-		res.render('admin/admin', {places:places});
+	.skip(skip)
+	.limit(limit)
+	.exec();
+
+	res.render('admin/admin', {
+		places:places,
+		currentPage:page,
+		maxPage:maxPage,
+		limit:limit
 	});
 });
+
 
 router.put('/:id', function(req, res, next){
 	console.log(req.body);
