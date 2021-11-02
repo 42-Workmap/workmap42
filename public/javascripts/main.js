@@ -7,12 +7,12 @@ let markerList = [];
 let infowindowList = [];
 let overlayList = [];
 let clusterList = [];
+let favsList = [];
 
 var list = []
 var listEl = document.getElementById('placesList');
 
 var map = new naver.maps.Map('map', mapOptions);
-
 
 
 spreadMarkers("");
@@ -40,10 +40,24 @@ function spreadMarkers (groupval) {
 	$.ajax({
 		url:`/location/${groupval}`,
 		type:"GET",
-	}).done((response) => displayMarkers(response));
+	}).done((response) => {
+		displayMarkers(response)
+	});
 	
 };
 
+function userMarkers () {
+	$.ajax({
+		url:`/fav`,
+		type:"GET",
+	}).done((response) => {
+		// for (let i = 0; i < response.data.length; i++){
+		// 	favsList.push(response.data[i].company_name);
+		// }
+		// console.log(favsList);
+		displayMarkers(response);
+	});
+};
 
 function cardClose(i) {
 	infowindowList[i].close();
@@ -112,7 +126,7 @@ function makeOverlay(target, marker){
 function targett(targetName){
 	console.log(targetName);
 	$.ajax({
-		url:`/location/fav`,
+		url:`/fav`,
 		data:{targetName}, 
 		type:"POST",
 	}).done((response) => {
@@ -142,7 +156,28 @@ function makeInfoContent(i, target, imgpath)
 	return content;
 }
 
-function loginInfoContent(i, target, imgpath)
+function favoriteHandler(self, targetName){
+	if (self.value === '등록'){
+		self.value = '해제';
+		self.innerHTML = '해제';
+		targett(targetName);
+	} else {
+		self.value = '등록';
+		self.innerText = '등록';
+		$.ajax({
+			url:`/fav/update`,
+			data:{targetName}, 
+			type:"PUT",
+		}).done((response) => {
+			console.log(response);
+			console.log("fav data request successed");
+		}).fail((error) => {
+			console.log("데이터 요청 실패");
+		})
+	}
+}
+
+function loginInfoContent(i, target, imgpath, status)
 {
 	const content = `
 			<div class="card">
@@ -154,7 +189,7 @@ function loginInfoContent(i, target, imgpath)
 					<hr>
 					<p class="card-text">${target.address}</p>
 					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
-					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="targett('${target.company_name}');">즐겨찾기</button>
+					<button type="button" class="btn btn-outline-info btn-sm float-right" value="${status}" onclick="favoriteHandler(this, '${target.company_name}');">${status}</button>
 				</div>
 			</div>
 		`;
@@ -235,6 +270,8 @@ function displayMarkers (response) {
 	removeClusters();
 	let isAuthenticated = $("#isAuthenticated").val();
 	console.log(isAuthenticated);
+	
+
 	if (data.length === 0){
 		let nodata = document.createElement("div");
 		let tmStr = `
@@ -262,7 +299,9 @@ function displayMarkers (response) {
 
 	const getClickMap = (i) => () => {
 		const infowindow = infowindowList[i];
-		infowindow.close();
+		if(infowindow){
+			infowindow.close();
+		}
 	};
 
 	const getHoverHandler = (i) => ()  => {
@@ -297,7 +336,7 @@ function displayMarkers (response) {
 
 		const imgpath = encodeURI("img/download/"+target.company_name+"/g_0000.jpg");
 		if (isAuthenticated === 'T'){
-			content = loginInfoContent(i, target, imgpath);
+			content = loginInfoContent(i, target, imgpath, '등록');
 		} else {
 			content = makeInfoContent(i, target, imgpath);
 		}
@@ -352,4 +391,9 @@ function removeClusters() {
 		clusterList[i].setMap(null);
 	}
 	clusterList = [];
+}
+
+function removeFavs() {
+
+	favsList = [];
 }

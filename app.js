@@ -70,6 +70,7 @@ var urlNotEncodedParser = function(req, res, next)
 
 // Routes
 app.use('/', require('./routes/home'));
+app.use('/fav', require('./routes/fav'));
 app.use('/posts', util.getPostQueryString, require('./routes/posts'));
 app.use('/users', require('./routes/users'));
 app.use('/location', require('./routes/location'));

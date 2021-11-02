@@ -59,30 +59,6 @@ router.get('/getnames', function (req, res, next){
 		});
 	});
 })
-  
-router.post('/fav', function(req, res){
-	reg = new RegExp(req.body.targetName);
-	locationModel.find({company_name:{$regex:reg}, group:{$exists:true}}, {_id:0, _v:0}).then((result) => {
-		User.findOneAndUpdate({_id:req.user._id}, {$push:{favorites: result[0]}}, function(err, user){
-			console.log(user);
-			console.log(user.favorites);
-			if(err){
-				console.log(err);
-			//   req.flash('post', req.body);
-			//   req.flash('errors', util.parseError(err));
-			   return res.redirect('/');
-			}
-			res.json({
-				message:"success",
-				data:user,
-			});
-		  })
-	}).catch((error) => {
-		res.json({
-			message:"error",
-		});
-	});
-});
 
 router.get("/:group", (req, res, next) => {
 	locationModel.find({group:req.params.group}, {_id:0, _v:0}).then((result)=>{
