@@ -109,6 +109,20 @@ function makeOverlay(target, marker){
 	overlayList.push(overlay);
 }
 
+function targett(targetName){
+	console.log(targetName);
+	$.ajax({
+		url:`/location/fav`,
+		data:{targetName}, 
+		type:"POST",
+	}).done((response) => {
+		console.log(response);
+		console.log("fav data request successed");
+	}).fail((error) => {
+		console.log("데이터 요청 실패");
+	})
+}
+
 function makeInfoContent(i, target, imgpath)
 {
 	const content = `
@@ -122,6 +136,25 @@ function makeInfoContent(i, target, imgpath)
 					<p class="card-text">${target.address}</p>
 					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
 					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="cardClose(${i});">Close</button>
+				</div>
+			</div>
+		`;
+	return content;
+}
+
+function loginInfoContent(i, target, imgpath)
+{
+	const content = `
+			<div class="card">
+				<div class="img-wrapper">
+					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">${target.company_name}</h5>
+					<hr>
+					<p class="card-text">${target.address}</p>
+					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
+					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="targett('${target.company_name}');">즐겨찾기</button>
 				</div>
 			</div>
 		`;
@@ -200,7 +233,8 @@ function displayMarkers (response) {
 	removeMarker();
 	removeWindows();
 	removeClusters();
-
+	let isAuthenticated = $("#isAuthenticated").val();
+	console.log(isAuthenticated);
 	if (data.length === 0){
 		let nodata = document.createElement("div");
 		let tmStr = `
@@ -262,7 +296,11 @@ function displayMarkers (response) {
 		});
 
 		const imgpath = encodeURI("img/download/"+target.company_name+"/g_0000.jpg");
-		content = makeInfoContent(i, target, imgpath);
+		if (isAuthenticated === 'T'){
+			content = loginInfoContent(i, target, imgpath);
+		} else {
+			content = makeInfoContent(i, target, imgpath);
+		}
 		
 		const infowindow = new naver.maps.InfoWindow({
 			content:content, 

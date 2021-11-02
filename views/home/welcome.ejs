@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/welcome.css" media="screen and (min-width:992px)"/>
     <link rel="stylesheet" href="/css/mobile.css" media="screen and (max-width:992px)"/>
+    <link rel="stylesheet" href="/css/cluster.css"/>
   </head>
   <body>
 
@@ -75,6 +76,7 @@
         <div class="col-lg-8 col-sm col-md mapcol " id="box-right">
           <div id="map" style="width:100%;height:90vh;"></div>
         </div> <!--col-lg-8 -->
+        <input type="hidden" id="isAuthenticated" name="isAuthenticated" value="<%= isAuthenticated?'T':'F'%>">
       </div>
     </div>
 
