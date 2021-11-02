@@ -42,6 +42,7 @@ function displayPlaces(data) {
 		marker.setMap(map);
 		markerList.push(marker);
 
+
 		const el = document.createElement("div");
 		const itemStr = `
 		<div class="info">

@@ -6,11 +6,14 @@ var mapOptions = {
 let markerList = [];
 let infowindowList = [];
 let overlayList = [];
+let clusterList = [];
 
 var list = []
 var listEl = document.getElementById('placesList');
 
 var map = new naver.maps.Map('map', mapOptions);
+
+
 
 spreadMarkers("");
 
@@ -38,6 +41,7 @@ function spreadMarkers (groupval) {
 		url:`/location/${groupval}`,
 		type:"GET",
 	}).done((response) => displayMarkers(response));
+	
 };
 
 
@@ -157,6 +161,37 @@ function makeCompanyList(target, marker, infowindow)
 		}
 }
 
+function makeMarkerClustering()
+{
+	const cluster1 = {
+		content: `<div class="cluster1"></div>`,
+	};
+
+	const cluster2 = {
+		content: `<div class="cluster2"></div>`
+	};
+
+	const cluster3 = {
+		content: `<div class="cluster3"></div>`
+	};
+
+	let markerClustering = new MarkerClustering({
+		minClusterSize : 2,
+		maxZoom: 12,
+		map: map,
+		markers: markerList,
+		disableClickZoom: false,
+		gridSize: 40,
+		icons: [cluster1, cluster2, cluster3],
+		indexGernerator: [5, 10, 20],
+		stylingFunction: (clusterMarker, count) => {
+			$(clusterMarker.getElement()).find("div:first-child").text(count);
+		}
+	});
+
+	clusterList.push(markerClustering);
+}
+
 function displayMarkers (response) {
 	if (response.message !== "success") return ;
 	const data = response.data;
@@ -164,6 +199,8 @@ function displayMarkers (response) {
 	removeAllChildNodes(listEl);
 	removeMarker();
 	removeWindows();
+	removeClusters();
+
 	if (data.length === 0){
 		let nodata = document.createElement("div");
 		let tmStr = `
@@ -240,12 +277,14 @@ function displayMarkers (response) {
 		makeCompanyList(target, marker, infowindow);
 	}
 
+
 	for (let i = 0, ii = markerList.length; i < ii; i++){
 		naver.maps.Event.addListener(map, "click", getClickMap(i));
 		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
 		naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
 		naver.maps.Event.addListener(markerList[i],"mouseout", getMouseOutHandler(i));
-	} 
+	}
+	makeMarkerClustering();
 }
 
 function removeAllChildNodes(el) {
@@ -257,8 +296,10 @@ function removeAllChildNodes(el) {
 function removeMarker() {
 	for (let i = 0; i < markerList.length; i++) {
 		markerList[i].setMap(null);
+		
 	}
 	markerList = [];
+
 }
 
 function removeWindows() {
@@ -266,4 +307,11 @@ function removeWindows() {
 		infowindowList[i].close();
 	}
 	infowindowList = [];
+}
+
+function removeClusters() {
+	for (let i = 0; i < clusterList.length; i++) {
+		clusterList[i].setMap(null);
+	}
+	clusterList = [];
 }
