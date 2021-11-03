@@ -15,7 +15,7 @@ var listEl = document.getElementById('placesList');
 var map = new naver.maps.Map('map', mapOptions);
 
 
-spreadMarkers("");
+spreadMarkers('');
 
 function querySearchDB() {
 	let keyword = $("#keyword").val();
@@ -28,22 +28,32 @@ function onSearchDB(keyword) {
 		data:{keyword}, 
 		type:"POST",
 	}).done((response) => {
-		displayMarkers(response);
+		displayMarkers(response, userMarkers);
 		console.log("data request successed");
 	}).fail((error) => {
 		console.log("데이터 요청 실패");
 	})
 }
 
-
 function spreadMarkers (groupval) {
 	$.ajax({
 		url:`/location/${groupval}`,
 		type:"GET",
 	}).done((response) => {
-		displayMarkers(response)
+		displayMarkers(response, userMarkers)
 	});
-	
+};
+
+function clickFavIcon () {
+	$.ajax({
+		url:`/fav`,
+		type:"GET",
+	}).done((response) => {
+		for (let i = 0; i < response.data.length; i++){
+			favsList.push(response.data[i].company_name);
+		}
+		displayMarkers(response, userMarkers);
+	});
 };
 
 function userMarkers () {
@@ -51,11 +61,9 @@ function userMarkers () {
 		url:`/fav`,
 		type:"GET",
 	}).done((response) => {
-		// for (let i = 0; i < response.data.length; i++){
-		// 	favsList.push(response.data[i].company_name);
-		// }
-		// console.log(favsList);
-		displayMarkers(response);
+		for (let i = 0; i < response.data.length; i++){
+			favsList.push(response.data[i].company_name);
+		}
 	});
 };
 
@@ -260,7 +268,7 @@ function makeMarkerClustering()
 	clusterList.push(markerClustering);
 }
 
-function displayMarkers (response) {
+function displayMarkers (response, callback) {
 	if (response.message !== "success") return ;
 	const data = response.data;
 
@@ -270,6 +278,9 @@ function displayMarkers (response) {
 	removeClusters();
 	let isAuthenticated = $("#isAuthenticated").val();
 	console.log(isAuthenticated);
+	if (isAuthenticated === 'T'){
+		callback();
+	}
 	
 
 	if (data.length === 0){
@@ -336,7 +347,11 @@ function displayMarkers (response) {
 
 		const imgpath = encodeURI("img/download/"+target.company_name+"/g_0000.jpg");
 		if (isAuthenticated === 'T'){
-			content = loginInfoContent(i, target, imgpath, '등록');
+			if (favsList.includes(target.company_name)){
+				content = loginInfoContent(i, target, imgpath, '해제');
+			} else {
+				content = loginInfoContent(i, target, imgpath, '등록');
+			}
 		} else {
 			content = makeInfoContent(i, target, imgpath);
 		}
@@ -372,11 +387,9 @@ function removeAllChildNodes(el) {
 
 function removeMarker() {
 	for (let i = 0; i < markerList.length; i++) {
-		markerList[i].setMap(null);
-		
+		markerList[i].setMap(null);	
 	}
 	markerList = [];
-
 }
 
 function removeWindows() {
@@ -394,6 +407,5 @@ function removeClusters() {
 }
 
 function removeFavs() {
-
 	favsList = [];
 }
