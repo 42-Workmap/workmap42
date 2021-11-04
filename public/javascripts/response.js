@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
 		$('#response').addClass('d-flex');
 		// $('#navbar_alim').removeClass('d-flex');
 		var alim = document.getElementById('navbar_alim');
-		if (alim.hasChildNodes()){
+		if (alim && alim.hasChildNodes()){
 			alim.removeChild(alim.lastChild);
 		}
 		$('#lg-row').removeClass('row');
@@ -17,7 +17,7 @@ jQuery(document).ready(function($) {
 		$('#response').addClass('btn-group-vertical');
 		$('#lg-row').addClass('row');
 		var alim = document.getElementById('navbar_alim');
-		if (!alim.hasChildNodes()){
+		if (alim && !alim.hasChildNodes()){
 			let el = document.createElement("h7");
 			let itemStr = `
 			즐겨찾기 기능은 로그인 후 이용가능합니다. `;
