@@ -256,14 +256,14 @@ function makeMarkerClustering()
 	};
 
 	let markerClustering = new MarkerClustering({
-		minClusterSize : 2,
+		minClusterSize : 3,
 		maxZoom: 12,
 		map: map,
 		markers: markerList,
 		disableClickZoom: false,
-		gridSize: 40,
+		gridSize: 80,
 		icons: [cluster1, cluster2, cluster3],
-		indexGernerator: [5, 10, 20],
+		indexGenerator: [5, 25, 50],
 		stylingFunction: (clusterMarker, count) => {
 			$(clusterMarker.getElement()).find("div:first-child").text(count);
 		}
