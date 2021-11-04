@@ -167,8 +167,6 @@ function makeInfoContent(i, target, imgpath)
 						<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm" style="margin:auto;">홈페이지</a>
 					</div>
 				</div>
-				
-				
 			</div>
 		`;
 	return content;
@@ -310,7 +308,7 @@ function displayMarkers (response, callback) {
 		listEl.appendChild(nodata);
 	}
 	
-	const getClickHandler = (i) => () => {
+	const getClickHandler = (i, target) => () => {
 		const marker = markerList[i];
 		const palces = document.querySelector('#placesList');
 		const card = list[i];
@@ -320,7 +318,8 @@ function displayMarkers (response, callback) {
 			infowindow.close();
 		} else {
 			infowindow.open(map, marker);
-			map.morph(marker.getPosition(), 12);
+			const newlng = new naver.maps.LatLng(target.lat + 0.03, target.lng);
+			map.morph(newlng, 12);
 			card.querySelector("div").scrollIntoView();
 		}
 	};
@@ -389,7 +388,7 @@ function displayMarkers (response, callback) {
 
 	for (let i = 0, ii = markerList.length; i < ii; i++){
 		naver.maps.Event.addListener(map, "click", getClickMap(i));
-		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
+		naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i, data[i]));
 		naver.maps.Event.addListener(markerList[i], "mouseover", getHoverHandler(i));
 		naver.maps.Event.addListener(markerList[i],"mouseout", getMouseOutHandler(i));
 	}
