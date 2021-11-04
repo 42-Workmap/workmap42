@@ -13,7 +13,7 @@ var list = []
 var listEl = document.getElementById('placesList');
 
 var map = new naver.maps.Map('map', mapOptions);
-
+let flag = 0;
 
 spreadMarkers('');
 
@@ -40,7 +40,8 @@ function spreadMarkers (groupval) {
 		url:`/location/${groupval}`,
 		type:"GET",
 	}).done((response) => {
-		displayMarkers(response, userMarkers)
+		flag = 0;
+		displayMarkers(response, userMarkers);
 	});
 };
 
@@ -52,6 +53,7 @@ function clickFavIcon () {
 		for (let i = 0; i < response.data.length; i++){
 			favsList.push(response.data[i].company_name);
 		}
+		flag = 1;
 		displayMarkers(response, userMarkers);
 	});
 };
@@ -177,8 +179,10 @@ function favoriteHandler(self, targetName){
 			data:{targetName}, 
 			type:"PUT",
 		}).done((response) => {
-			console.log(response);
 			console.log("fav data request successed");
+			if(flag === 1){
+				clickFavIcon();
+			}
 		}).fail((error) => {
 			console.log("데이터 요청 실패");
 		})
