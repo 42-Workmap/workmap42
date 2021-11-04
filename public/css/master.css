@@ -70,6 +70,11 @@ body {
   display:inherit;
 }
 
+.justify-center-between {
+  text-align: center; 
+  margin:auto;
+}
+
 /* .container {
   width: 100%;
   padding-right: 15px;
