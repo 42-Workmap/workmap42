@@ -13,7 +13,7 @@
 		<div id="map" style="width:100%;height:100vh"></div>
 		<div id="menu_wrap">
 			<form onsubmit="searchPlaces(); return false">
-				 키워드: <input type="text" value="강남역" id="keyword" size="15" />
+				 키워드: <input type="text" value="이노베이션 아카데미" placeholder='' onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value='';" id="keyword" size="15" />
 				<button type="submit" class="btn-sm btn-info">검색하기</button>
 			</form>
 			<div id="placesList"></div>
