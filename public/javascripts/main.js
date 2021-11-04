@@ -151,6 +151,11 @@ function makeInfoContent(i, target, imgpath)
 {
 	const content = `
 			<div class="card">
+				<div class="card-header bg-transparent border-bottom-0">
+					<button data-dismiss="alert" data-target="#closeablecard" type="button" class="close" onclick="cardClose(${i});"aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 				<div class="img-wrapper">
 					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
 				</div>
@@ -158,9 +163,12 @@ function makeInfoContent(i, target, imgpath)
 					<h5 class="card-title">${target.company_name}</h5>
 					<hr>
 					<p class="card-text">${target.address}</p>
-					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
-					<button type="button" class="btn btn-outline-info btn-sm float-right" onclick="cardClose(${i});">Close</button>
+					<div style="display:grid;">
+						<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm" style="margin:auto;">홈페이지</a>
+					</div>
 				</div>
+				
+				
 			</div>
 		`;
 	return content;
@@ -193,6 +201,11 @@ function loginInfoContent(i, target, imgpath, status)
 {
 	const content = `
 			<div class="card">
+			<div class="card-header bg-transparent border-bottom-0">
+				<button data-dismiss="alert" data-target="#closeablecard" type="button" class="close" onclick="cardClose(${i});"aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 				<div class="img-wrapper">
 					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
 				</div>
