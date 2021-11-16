@@ -49,9 +49,15 @@ router.get('/', async function(req, res){
 router.put('/:id', function(req, res, next){
 	console.log(req.body);
 	if (req.body.homepage) {
-		locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group, homepage:req.body.homepage}}, function(err, result){
-			res.redirect('/admin');
-		});
+		if (req.body.brand_name){
+			locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group, homepage:req.body.homepage, brand_name:req.body.brand_name}}, function(err, result){
+				res.redirect('/admin');
+			});
+		} else {
+			locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group, homepage:req.body.homepage}}, function(err, result){
+				res.redirect('/admin');
+			});
+		}
 	} else {
 		locationModel.findOneAndUpdate({_id:req.params.id}, {$set:{group:req.body.group}}, function(err, result){
 			res.redirect('/admin');

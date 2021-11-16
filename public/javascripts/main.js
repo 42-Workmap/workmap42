@@ -147,28 +147,43 @@ function targett(targetName){
 	})
 }
 
-function makeInfoContent(i, target, imgpath)
+function makeInfoContent(i, target, imgpath, status)
 {
-	const content = `
-			<div class="card">
-				<div class="card-header bg-transparent border-bottom-0">
-					<button data-dismiss="alert" data-target="#closeablecard" type="button" class="close" onclick="cardClose(${i});"aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="img-wrapper">
-					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">${target.company_name}</h5>
-					<hr>
-					<p class="card-text">${target.address}</p>
-					<div style="display:grid;">
-						<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm" style="margin:auto;">홈페이지</a>
+	let content = `
+				<div class="card">
+					<div class="card-header bg-transparent border-bottom-0">
+						<button data-dismiss="alert" data-target="#closeablecard" type="button" class="close" onclick="cardClose(${i});"aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
 					</div>
+					<div class="img-wrapper">
+						<img class="card-img-top" src="${imgpath}" alt="Card image cap">
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">${target.company_name}</h5>`
+	if (target.brand_name){
+		content = content + `<div class="card-brand">${target.brand_name} </div>`;
+	}
+	content = content + `
+					<hr>
+					<p class="card-text">${target.address}</p>`;
+					
+	if (status === 0){
+		content = content + `
+		<div style="display:grid;">
+							<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm" style="margin:auto;">홈페이지</a>
+						</div>
+					</div>
+				</div>`;
+	} else {
+		content = content +	`
+		<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
+					<button type="button" class="btn btn-outline-info btn-sm float-right" value="${status}" onclick="favoriteHandler(this, '${target.company_name}');">${status}</button>
 				</div>
 			</div>
 		`;
+	}
+
 	return content;
 }
 
@@ -195,39 +210,31 @@ function favoriteHandler(self, targetName){
 	}
 }
 
-function loginInfoContent(i, target, imgpath, status)
-{
-	const content = `
-			<div class="card">
-			<div class="card-header bg-transparent border-bottom-0">
-				<button data-dismiss="alert" data-target="#closeablecard" type="button" class="close" onclick="cardClose(${i});"aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-				<div class="img-wrapper">
-					<img class="card-img-top" src="${imgpath}" alt="Card image cap">
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">${target.company_name}</h5>
-					<hr>
-					<p class="card-text">${target.address}</p>
-					<a href="${target.homepage}" target="_blank" class="btn btn-outline-info btn-sm">홈페이지</a>
-					<button type="button" class="btn btn-outline-info btn-sm float-right" value="${status}" onclick="favoriteHandler(this, '${target.company_name}');">${status}</button>
-				</div>
-			</div>
-		`;
-	return content;
-}
-
 function makeCompanyList(target, marker, infowindow)
 {
 	let el = document.createElement("div");
-		let itemStr = `
+	let itemstr = '';
+	if (target.brand_name === undefined){
+		itemStr = `
 			<div class="card">
 				<div class="card-body">
-					<h6 class="card-title">${target.company_name}</h6>
+					<div>
+					<h6 class="card-title" style="display:inline">${target.company_name}</h6>
+					</div>
 					<span class="card-text">${target.address}</span>
 				</div>`;
+	} else {
+		itemStr = `
+		<div class="card">
+			<div class="card-body">
+				<div>
+				<h6 class="card-title" style="display:inline">${target.company_name}</h6>
+				<span class="card-brand"> ${target.brand_name}</span>
+				</div>
+				<span class="card-text">${target.address}</span>
+			</div>`;
+
+	}
 
 		el.innerHTML = itemStr;
 		el.className = "item"; 
@@ -364,12 +371,12 @@ function displayMarkers (response, callback) {
 		const imgpath = encodeURI("img/download/"+target.company_name+"/g_0000.jpg");
 		if (isAuthenticated === 'T'){
 			if (favsList.includes(target.company_name)){
-				content = loginInfoContent(i, target, imgpath, '해제');
+				content = makeInfoContent(i, target, imgpath, '해제');
 			} else {
-				content = loginInfoContent(i, target, imgpath, '등록');
+				content = makeInfoContent(i, target, imgpath, '등록');
 			}
 		} else {
-			content = makeInfoContent(i, target, imgpath);
+			content = makeInfoContent(i, target, imgpath, 0);
 		}
 		
 		const infowindow = new naver.maps.InfoWindow({

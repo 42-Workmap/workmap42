@@ -9,7 +9,8 @@ const locationschema = new Schema({
 	category_name : {type:String}, 
 	place_url : {type:String}, 
 	homepage : {type:String},
-	group:{type:String}
+	group:{type:String}, 
+	brand_name : {type:String},
 });
 
 module.exports = mongoose.model("location", locationschema);

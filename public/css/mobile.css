@@ -181,6 +181,13 @@ form {
 	font-size:calc(11px + 5 * ((100vw - 500px) / 900));
 }
 
+.card-brand {
+	font-size:cacl(9px + 5 * ((100vw-500px) / 900));
+	color:grey;
+	margin : 0px;
+	padding:0px;
+}
+
 .btn-outline-info {
 	width : 10vw;
 	margin : 1;

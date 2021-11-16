@@ -33,6 +33,7 @@
           <tr>
             <th scope="col" style="width:150px">Company</th>
             <th scope="col" >Category</th> <!--post author-->
+            <th scope="col" >Brand</th> <!--post author-->
             <th scope="col">Address</th>
             <th scope="col">Group</th>
             <th scope="col">Group</th>
@@ -56,16 +57,20 @@
               </td>
               <form action="/admin/<%= place._id %>?_method=put" method="post">
                 <td>
+                  <input type="text" id="brand_name" name="brand_name" value="<%= place.brand_name %>" class="form-control d-inline" style="width:150px">
+                </td>
+                <td>
                   <% if (place.homepage == undefined) {%>  
                     <input type="text" name="homepage" value="<%= place.homepage %>" class="from-control d-inline" style="width:200px">
                   <% } else {%>
                     <div class="ellipsis"><a href="<%= place.homepage %>" target="_blank"><%= place.homepage ? place.homepage : "" %></a></div>
+                    <input type="hidden" name="homepage" value="<%= place.homepage %>" class="from-control d-inline" style="width:200px">
                   <% } %>
                 </td>
-              <td>
-                  <input type="text" id="group" name="group" value="<%= place.group %>" class="form-control d-inline" style="width:150px">
-                  <input type="hidden" name="place_url" value="<%= place.place_url %>">
-              </td>
+                <td>
+                    <input type="text" id="group" name="group" value="<%= place.group %>" class="form-control d-inline" style="width:150px">
+                    <input type="hidden" name="place_url" value="<%= place.place_url %>">
+                </td>
               <td><button type="submit" class="btn btn-primary">Submit</button></td>
             </form>
 
