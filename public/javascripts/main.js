@@ -325,8 +325,20 @@ function displayMarkers (response, callback) {
 			infowindow.close();
 		} else {
 			infowindow.open(map, marker);
-			const newlng = new naver.maps.LatLng(target.lat + 0.03, target.lng);
-			map.morph(newlng, 12);
+			zoomlev = map.getZoom();
+			if (zoomlev >= 18){
+				let calcul = 0.05 / (zoomlev * zoomlev);
+				let newlng = new naver.maps.LatLng(target.lat + calcul, target.lng);
+				map.morph(newlng, zoomlev);
+			} else if (zoomlev > 12 ) {
+				let calcul = 0.05 / (zoomlev * 2);
+				let newlng = new naver.maps.LatLng(target.lat + calcul, target.lng);
+				map.morph(newlng, zoomlev);
+			
+			} else {
+				let newlng = new naver.maps.LatLng(target.lat + 0.03, target.lng);
+				map.morph(newlng, 12);
+			}
 			card.querySelector("div").scrollIntoView();
 		}
 	};
