@@ -7,4 +7,8 @@ public/img/download/*/g_0002*
 public/img/download/*/g_0003*
 public/img/download/*/g_0004*
 public/img/download/*/g_0005*
+public/img/download/*/g_0006*
+public/img/download/*/g_0007*
 aws-second-nodejs.cer
+.DS_Store
+public/.DS_Store
