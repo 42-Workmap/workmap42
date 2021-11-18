@@ -19,7 +19,7 @@
 	color: white;
 	text-align: center;
 	font-weight: bold;
-	background: rgba(235, 9, 209, 0.83);
+	background: rgba(235, 9, 209, 0.5);
 }
 
 .cluster3 {
@@ -34,6 +34,7 @@
 	text-align: center;
 	font-weight: bold;
 	background: #9b2977b3;
+	opacity: 0.84;
 }
 
 #bank {

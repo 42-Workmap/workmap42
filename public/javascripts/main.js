@@ -36,6 +36,7 @@ function onSearchDB(keyword) {
 }
 
 function spreadMarkers (groupval) {
+	$("#keyword").val("");
 	$.ajax({
 		url:`/location/${groupval}`,
 		type:"GET",
