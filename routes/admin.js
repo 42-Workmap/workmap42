@@ -22,7 +22,7 @@ var fs = require('fs');
 // 	});
 // });
 
-router.get('/', async function(req, res){
+router.get('/', util.isLoggedin, checkPermissionAdmin, async function(req, res){
 	var page = Math.max(1, parseInt(req.query.page));
 	var limit = Math.max(1, parseInt(req.query.limit));
 	page = !isNaN(page)?page:1;
