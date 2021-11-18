@@ -12,63 +12,6 @@ body {
 	padding : 0px;
 	margin:0px;
 }
-
-/* map 클릭시 생기는 파란 테두리 삭제  */
-#map:focus {
-	outline : none;
-}
-
-/*space between navbar*/
-.mb-3 {
-	margin-bottom : 0px !important;
-}
-
-/* map이 속한 column  */
-.mapcol {
-	padding : 0px;
-}
-
-/* Home About Board 메뉴바 터치 시 살짝 꺼매지는 효과 */
-li a:hover:not(.active) {
-	font : #111;
-}
-
-/* green marker */
-.marker {
-	width : 15px;
-	height : 15px;
-	background : green ;
-	opacity : 60%; 
-	border : 1px solid black;
-	border-radius : 50%;
-}
-
-#group_game {
-	width:100%;
-}
-
-/* #box-left {
-} */
-
-@media only screen and (min-width:992px) {
-	#box-left {
-		height:90vh;
-		position : relative;
-		left : 0;
-		right : 0;
-		bottom : 0;
-		overflow-y: auto;
-	}
-}
-
-@media not screen and (min-width:992px) {
-	#box-left {
-		height:auto	;
-	}
-	#response {
-		width : 100%;
-	}
-}
 /* placesList */
 #placesList {
 
@@ -93,27 +36,6 @@ li a:hover:not(.active) {
 
 }
 
-/* keyword 속한 검색창 */
-form {
-	margin-right: 0px;
-	padding: 0px;
-}
-
-.grouptext {
-	width : 90%;
-	left : 0;
-	margin:auto;
-	text-align:center;
-	font-size:calc(9px + 5 * ((100vw - 500px) / 900));
-	font-family: 'Jua', sans-serif;
-}
-
-.btn-group-vertical {
-	display:block;
-	margin-left:auto;
-	margin-right:auto;
-}
-
 .fs-4 img {
 	width : 30px;
 	padding-top:10px;
@@ -122,38 +44,6 @@ form {
 	margin-left:auto;
 	margin-right:auto;
 	
-}
-
-#bank {
-	background:#ff0000;
-}
-
-#entertainment {
-	background :#FF7F00
-}
-
-#living {
-	background :#FFFF00;
-}
-
-#game {
-	background: #00FF00;
-}
-
-#network {
-	background:#0000FF;
-}
-
-#shopping {
-	background : #4B0082;
-}
-
-#software {
-	background : #9400D3; /*https://www.krishnamani.in/color-codes-for-rainbow-vibgyor-colours/ */
-}
-
-#innovation {
-	background: #000000;
 }
 
 .img-wrapper { 

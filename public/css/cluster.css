@@ -35,3 +35,39 @@
 	font-weight: bold;
 	background: #9b2977b3;
 }
+
+#bank {
+	background:#ff0000;
+}
+
+#entertainment {
+	background :#FF7F00
+}
+
+#living {
+	background :#FFFF00;
+}
+
+#game {
+	background: #00FF00;
+}
+
+#network {
+	background:#0000FF;
+}
+
+#shopping {
+	background : #4B0082;
+}
+
+#software {
+	background : #9400D3; /*https://www.krishnamani.in/color-codes-for-rainbow-vibgyor-colours/ */
+}
+
+#innovation {
+	background: #000000;
+}
+
+#ai {
+	background: #964b00;
+}

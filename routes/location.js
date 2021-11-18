@@ -84,7 +84,7 @@ const crawler = async (place_url) => {
 		await page.waitForSelector('.link_homepage');
 		if (await page.$('.link_homepage') !== null){
 			let result = await page.evaluate(() => document.querySelector('.link_homepage').textContent);
-			result = "http://" + result;
+			result = "https://" + result;
 			await page.close();
 			await browser.close();
 			return result;
