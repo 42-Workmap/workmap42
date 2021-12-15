@@ -16,7 +16,7 @@
 
 ### Demo Website Link
 
-- url : https://3.94.119.184/
+- url : http:/workmap42.com
 
 ---
 
@@ -54,11 +54,6 @@
 | Role                  | R   |
 
 -->
-
-
-### License
-
-- MIT
 
 ---
 
