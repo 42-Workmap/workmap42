@@ -1,4 +1,4 @@
-## WorkMap (by.웹새싹)
+## :runner: WorkMap (by.웹새싹)
 
 ### Development Goals
 <img width="500" alt="Workmap_about" src="https://user-images.githubusercontent.com/68208055/141721332-eb76df0b-aeda-4047-ba60-b9a2bfa35dc9.png">
@@ -16,11 +16,11 @@
 
 ### Demo Website Link
 
-- url : http:/workmap42.com
+- url : not active <del>https:/workmap42.com<del>
 
 ---
 
-### Development and deployment environment
+### :sunflower: Development and deployment environment
 
 | Part                       | Environment |
 | -------------------------- | ----------- |
@@ -31,7 +31,7 @@
 
 ---
 
-### System diagram
+### 📚 System diagram
 
 #### Main Functions
 
